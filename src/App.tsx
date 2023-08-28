@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 function App() {
-  // Define a state to track whether the sidebar is open or closed
+  // Define a state to track whether the sidebar (navbar) is open or closed
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Function to toggle the sidebar
+  // Function to toggle the sidebar (navbar)
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -13,12 +13,10 @@ function App() {
     <div>
       <div className="md:flex">
         {/* Mobile Navbar (Visible on Mobile) */}
-        <nav className={`md:hidden bg-gray-800`}>
+        <nav className="md:hidden bg-gray-800">
           {/* Hamburger Button */}
           <div className="flex justify-between items-center py-2 px-4">
-            <div className="text-white text-2xl font-bold">
-              True Hope 4 Success
-            </div>
+            <div className="text-white text-2xl">True Hope 4 Success</div>
             <button
               onClick={toggleSidebar}
               className="text-gray-500 hover:text-white focus:outline-none focus:text-white"
@@ -45,40 +43,41 @@ function App() {
               </svg>
             </button>
           </div>
-        </nav>
-
-        {/* Sidebar (Hidden on Mobile) */}
-        <aside
-          className={`md:block w-3/12 bg-gray-800 h-screen transform ${
-            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } transition-transform ease-in-out duration-300`}
-        >
-          {/* Sidebar content */}
-          <ul className="text-white text-center pt-4">
+          {/* Dropdown Navigation */}
+          <ul
+            className={`${
+              isSidebarOpen
+                ? "max-h-screen opacity-100 transition-all duration-1000 ease-in-out"
+                : "max-h-0 opacity-0"
+            } overflow-hidden text-white ml-4 delay-200`}
+          >
             {/* List of clickable anchor elements */}
             <li className="mb-2">
-              <a href="#about" className="block hover:text-blue-400">
+              <a href="#about" className="block py-2 hover:text-blue-400">
                 About
               </a>
             </li>
             <li className="mb-2">
-              <a href="#skills" className="block hover:text-blue-400">
+              <a href="#skills" className="block py-2 hover:text-blue-400">
                 Skills
               </a>
             </li>
             <li className="mb-2">
-              <a href="#education" className="block hover:text-blue-400">
+              <a href="#education" className="block py-2 hover:text-blue-400">
                 Education
               </a>
             </li>
             <li className="mb-2">
-              <a href="#contact" className="block hover:text-blue-400">
+              <a href="#contact" className="block py-2 hover:text-blue-400">
                 Contact
               </a>
             </li>
             {/* Add more sections as needed */}
           </ul>
-        </aside>
+        </nav>
+
+        {/* Sidebar (Hidden on Mobile) */}
+        {/* You can remove this section as it's no longer needed */}
 
         {/* Main Content */}
         <main className="w-full md:w-4/5 bg-white p-8">

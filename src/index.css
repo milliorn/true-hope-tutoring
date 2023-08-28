@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Fira+Sans&family=Lato&family=Montserrat&family=Open+Sans&family=Playfair+Display&family=Poppins&family=Raleway&family=Roboto&family=Source+Sans+3&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Fira+Sans&family=Lato&family=Montserrat&family=Open+Sans&family=Playfair+Display&family=Poppins&family=Raleway&family=Roboto&family=Source+Sans+3&display=swap"); */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-* {
+/* * {
   font-family: "Playfair Display", "Fira Sans", "Lato", "Montserrat",
     "Open Sans", "Poppins", "Raleway", "Roboto", "Source Sans 3", sans-serif;
-}
+} */
