@@ -49,12 +49,12 @@ function App() {
 
         {/* Sidebar (Hidden on Mobile) */}
         <aside
-          className={`md:block w-1/5 bg-gray-800 h-screen ${
-            isSidebarOpen ? "block" : "hidden"
-          }`}
+          className={`md:block w-3/12 bg-gray-800 h-screen transform ${
+            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } transition-transform ease-in-out duration-300`}
         >
           {/* Sidebar content */}
-          <ul className="text-white ml-2">
+          <ul className="text-white text-center pt-4">
             {/* List of clickable anchor elements */}
             <li className="mb-2">
               <a href="#about" className="block hover:text-blue-400">
