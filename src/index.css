@@ -5,6 +5,6 @@
 @tailwind utilities;
 
 * {
-  font-family: "Lato", "Fira Sans", "Playfair Display", "Montserrat",
-    "Open Sans", "Poppins", "Raleway", "Roboto", "Source Sans 3", sans-serif;
+  font-family: "Playfair Display", "Raleway", "Lato", "Fira Sans", "Montserrat",
+    "Open Sans", "Poppins", "Roboto", "Source Sans 3", sans-serif;
 }
