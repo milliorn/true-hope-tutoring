@@ -26,10 +26,10 @@ function App() {
             <div className="text-sky-50 text-2xl">True Hope 4 Success</div>
             <button
               onClick={toggleSidebar}
-              className="text-sky-500 hover:text-sky-100 focus:outline-none focus:text-sky-100"
+              className="text-sky-200 hover:text-sky-100 focus:outline-none focus:text-sky-100 border rounded border-sky-200"
             >
               <svg
-                className="h-6 w-6 fill-current"
+                className="h-8 w-8 fill-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
               >
