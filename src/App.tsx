@@ -93,7 +93,7 @@ function App() {
       {/* Sidebar (Hidden on Mobile) */}
 
       {/* Centered Content */}
-      <main className="w-full md:w-4/5 bg-sky-50 h-screen flex justify-center items-center p-8">
+      <main className="w-full md:w-4/5 bg-sky-100 h-screen flex justify-center items-center p-8">
         {/* Main content goes here */}
         <div className="text-center">
           <h1 className="text-5xl font-bold">
