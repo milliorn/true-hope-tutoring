@@ -8,3 +8,21 @@
   font-family: "Playfair Display", "Raleway", "Lato", "Fira Sans", "Montserrat",
     "Open Sans", "Poppins", "Roboto", "Source Sans 3", sans-serif;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Add a custom easing function for slower scrolling */
+@keyframes scroll {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  75% {
+    transform: translateY(-10px);
+  }
+}

@@ -13,12 +13,16 @@ function App() {
   };
 
   const scrollToAbout = () => {
-    const about = document.getElementById("about");
-    about?.scrollIntoView({ behavior: "smooth" });
+    const about = document.querySelector("#about");
+
+    // Wait briefly before scrolling
+    setTimeout(() => {
+      about?.scrollIntoView({ behavior: "smooth" });
+    }, 200);
   };
 
   return (
-    <div>
+    <div className="scroll-behavior-smooth">
       {/* Top Navbar (Visible on Mobile) */}
       <nav
         className={`md:hidden fixed top-0 w-full`}
@@ -57,6 +61,7 @@ function App() {
             </svg>
           </button>
         </div>
+
         {/* Dropdown Navigation */}
         <ul
           className={`${
@@ -67,13 +72,21 @@ function App() {
         >
           {/* List of clickable anchor elements */}
           <li className="mb-2">
-            <a href="#about" className="block py-2 hover:text-sky-400">
+            <a href="#" className="block py-2 hover:text-sky-400">
+              Home
+            </a>
+          </li>
+          <li className="mb-2">
+            <a
+              href="#about"
+              className="scroll-link block py-2 hover:text-sky-400"
+            >
               About
             </a>
           </li>
           <li className="mb-2">
             <a href="#skills" className="block py-2 hover:text-sky-400">
-              Skills
+              Qualifications
             </a>
           </li>
           <li className="mb-2">
@@ -115,6 +128,36 @@ function App() {
           </button>
         </div>
       </main>
+
+      {/* About Section */}
+      <section id="about" className="bg-sky-50 py-16 text-sky-900">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold  text-center">About Us</h2>
+          <p className="m-4 text-left">
+            Hello, I'm Hope True, a dedicated math tutor with over 5 years of
+            experience. I hold a B.S. in Mathematics from Fresno State and am a
+            Certified Tutor. I'm passionate about helping students succeed, from
+            elementary to college level, including those with learning
+            disabilities.
+          </p>
+          <p className="m-4 text-left">
+            Whether in-person in Monterey, CA, or online, I cover various
+            subjects like Algebra, Geometry, Trigonometry, Pre-Calculus,
+            Calculus, Statistics, and more. Let's work together to achieve your
+            academic goals.
+          </p>
+
+          {/* Add more content about your organization */}
+        </div>
+      </section>
+
+      {/* Qualifications Section */}
+      <section
+        id="qualifications"
+        className="bg-sky-100 py-16 text-sky-900"
+      >
+        
+      </section>
     </div>
   );
 }
