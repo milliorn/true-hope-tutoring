@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const NAME_FIRST = "Hope";
 const NAME_LAST = "True";
+const NAVBAR_TITLE = "True Hope 4 Success";
 
 function App() {
   // Define a state to track whether the sidebar (navbar) is open or closed
@@ -34,7 +35,7 @@ function App() {
       >
         {/* Hamburger Button */}
         <div className="flex justify-between items-center py-2 px-4">
-          <div className="text-sky-50 text-2xl">True Hope 4 Success</div>
+          <div className="text-sky-50 text-2xl">{NAVBAR_TITLE}</div>
           <button
             onClick={toggleSidebar}
             className="text-sky-200 hover:text-sky-100 focus:outline-none focus:text-sky-100 border rounded border-sky-200"
@@ -99,11 +100,8 @@ function App() {
               Contact
             </a>
           </li>
-          {/* Add more sections as needed */}
         </ul>
       </nav>
-
-      {/* Sidebar (Hidden on Mobile) */}
 
       {/* Centered Content */}
       <main className="w-full md:w-4/5 bg-sky-100 h-screen flex justify-center items-center p-8">
@@ -132,7 +130,7 @@ function App() {
       {/* About Section */}
       <section id="about" className="bg-sky-50 py-16 text-sky-900">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold  text-center">About Us</h2>
+          <h2 className="text-3xl font-bold  text-center">About Me</h2>
           <p className="m-4 text-left">
             Hello, I'm Hope True, a dedicated math tutor with over 5 years of
             experience. I hold a B.S. in Mathematics from Fresno State and am a
@@ -155,9 +153,7 @@ function App() {
       <section
         id="qualifications"
         className="bg-sky-100 py-16 text-sky-900"
-      >
-        
-      </section>
+      ></section>
     </div>
   );
 }
