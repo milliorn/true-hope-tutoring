@@ -86,13 +86,18 @@ function App() {
             </a>
           </li>
           <li className="mb-2">
-            <a href="#skills" className="block py-2 hover:text-sky-400">
+            <a href="#qualifications" className="block py-2 hover:text-sky-400">
               Qualifications
             </a>
           </li>
           <li className="mb-2">
             <a href="#availability" className="block py-2 hover:text-sky-400">
               Availability
+            </a>
+          </li>
+          <li className="mb-2">
+            <a href="#rates" className="block py-2 hover:text-sky-400">
+              Rates
             </a>
           </li>
           <li className="mb-2">
@@ -144,17 +149,15 @@ function App() {
             Calculus, Statistics, and more. Let's work together to achieve your
             academic goals.
           </p>
-
-          {/* Add more content about your organization */}
         </div>
       </section>
 
       {/* Qualifications Section */}
       <section id="qualifications" className="bg-sky-100 py-16 text-sky-900">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold  text-center">Qualifications</h2>
+          <h2 className="text-3xl font-bold text-center">Qualifications</h2>
           <ul className="list-none">
-            <li className="m-4 text-left">
+            <li className="m-4">
               <span className="font-bold">B.S. in Mathematics</span> from
               California State University, Fresno as an{" "}
               <span className="font-bold">Honor Graduate</span>
@@ -190,6 +193,42 @@ function App() {
             <li className="m-4">Zoom</li>
             <li className="m-4">At your home ($25.00 travel fee)</li>
           </ul>
+        </div>
+      </section>
+
+      {/* Rates Section */}
+      <section id="rates" className="bg-sky-100 py-16 text-sky-900">
+        <div className="container mx-auto text-center capitalize">
+          <h2 className="text-3xl font-bold">Rates</h2>
+          <ul className="list-none">
+            <li className="m-4">
+              <span className="font-bold">
+                Call or email for pricing information
+              </span>
+            </li>
+            <li className="m-4">
+              <span className="font-bold">Group rates available</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="bg-sky-50 py-16 text-sky-900">
+        <div className="container mx-auto capitalize text-center font-bold">
+          <h2 className="text-3xl m-4">Contact</h2>
+          <h3 className=" m-4"> True Hope 4 Success Tutoring</h3>
+          <h3 className="m-4">
+            <a className="cursor-pointer" href="tel:5599301934">
+              Phone: (559) 930-1934
+            </a>
+          </h3>
+          <h3 className="m-4">
+            <a className="mailto" href="mailto:truehopetutoring@gmail.com">
+              Email:{" "}
+              <span className="lowercase">truehopetutoring@gmail.com</span>
+            </a>
+          </h3>
         </div>
       </section>
     </div>
