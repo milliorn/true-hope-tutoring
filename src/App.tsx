@@ -104,7 +104,7 @@ function App() {
       </nav>
 
       {/* Centered Content */}
-      <main className="w-full md:w-4/5 bg-sky-100 h-screen flex justify-center items-center p-8">
+      <section className="w-full md:w-4/5 bg-sky-100 h-screen flex justify-center items-center p-8">
         {/* Main content goes here */}
         <div className="text-center">
           <h1 className="text-5xl font-bold">
@@ -125,7 +125,7 @@ function App() {
             Learn More
           </button>
         </div>
-      </main>
+      </section>
 
       {/* About Section */}
       <section id="about" className="bg-sky-50 py-16 text-sky-900">
@@ -150,10 +150,31 @@ function App() {
       </section>
 
       {/* Qualifications Section */}
-      <section
-        id="qualifications"
-        className="bg-sky-100 py-16 text-sky-900"
-      ></section>
+      <section id="qualifications" className="bg-sky-100 py-16 text-sky-900">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold  text-center">Qualifications</h2>
+          <li>
+            <ul>
+              <li className="m-4 text-left">
+                <span className="font-bold">B.S. in Mathematics</span> from
+                California State University, Fresno as an{" "}
+                <span className="font-bold">Honor Graduate</span>
+              </li>
+              <li className="m-4 text-left">
+                <span className="font-bold">Certified Tutor</span> from the
+                College Reading and Learning Association (CRLA)
+              </li>
+              <li className="m-4 text-left">
+                <span className="font-bold">5+ Years</span> of experience
+                tutoring math
+              </li>
+              <li className="m-4 text-left">
+                <span className="font-bold">Mother</span> of 4.
+              </li>
+            </ul>
+          </li>
+        </div>
+      </section>
     </div>
   );
 }
