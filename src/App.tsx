@@ -91,8 +91,8 @@ function App() {
             </a>
           </li>
           <li className="mb-2">
-            <a href="#education" className="block py-2 hover:text-sky-400">
-              Education
+            <a href="#availability" className="block py-2 hover:text-sky-400">
+              Availability
             </a>
           </li>
           <li className="mb-2">
@@ -139,8 +139,8 @@ function App() {
             disabilities.
           </p>
           <p className="m-4 text-left">
-            Whether in-person in Monterey, CA, or online, I cover various
-            subjects like Algebra, Geometry, Trigonometry, Pre-Calculus,
+            Whether in-person in Monterey, CA, or online, I specialize in
+            various subjects like Algebra, Geometry, Trigonometry, Pre-Calculus,
             Calculus, Statistics, and more. Let's work together to achieve your
             academic goals.
           </p>
@@ -153,26 +153,43 @@ function App() {
       <section id="qualifications" className="bg-sky-100 py-16 text-sky-900">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold  text-center">Qualifications</h2>
-          <li>
-            <ul>
-              <li className="m-4 text-left">
-                <span className="font-bold">B.S. in Mathematics</span> from
-                California State University, Fresno as an{" "}
-                <span className="font-bold">Honor Graduate</span>
-              </li>
-              <li className="m-4 text-left">
-                <span className="font-bold">Certified Tutor</span> from the
-                College Reading and Learning Association (CRLA)
-              </li>
-              <li className="m-4 text-left">
-                <span className="font-bold">5+ Years</span> of experience
-                tutoring math
-              </li>
-              <li className="m-4 text-left">
-                <span className="font-bold">Mother</span> of 4.
-              </li>
-            </ul>
-          </li>
+          <ul className="list-none">
+            <li className="m-4 text-left">
+              <span className="font-bold">B.S. in Mathematics</span> from
+              California State University, Fresno as an{" "}
+              <span className="font-bold">Honor Graduate</span>
+            </li>
+            <li className="m-4 text-left">
+              <span className="font-bold">Certified Tutor</span> from the
+              College Reading and Learning Association (CRLA)
+            </li>
+            <li className="m-4 text-left">
+              <span className="font-bold">5+ Years</span> of experience tutoring
+              math
+            </li>
+            <li className="m-4 text-left">
+              <span className="font-bold">Mother</span> of 4.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Availability Section */}
+      <section id="availability" className="bg-sky-50 py-16 text-sky-900">
+        <div className="container mx-auto capitalize">
+          <h2 className="text-3xl font-bold  text-center">Availability</h2>
+          <h3 className="text-lg text-center m-4">
+            I am available at the following locations:
+          </h3>
+          <ul className="font-bold list-none text-center">
+            <li className="m-4 cursor-pointer hover:text-sky-400">
+              <a href="https://www.google.com/maps/place/2100+Garden+Rd+c312,+Monterey,+CA+93940">
+                2100 Garden Rd c312, Monterey, CA 93940
+              </a>
+            </li>
+            <li className="m-4">Zoom</li>
+            <li className="m-4">At your home ($25.00 travel fee)</li>
+          </ul>
         </div>
       </section>
     </div>
