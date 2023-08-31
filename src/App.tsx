@@ -109,28 +109,33 @@ function App() {
       </nav>
 
       {/* Centered Content */}
-      <section className="w-full md:w-4/5 bg-sky-100 h-screen flex justify-center items-center p-8">
+      <main className="w-full md:w-4/5 bg-sky-100 h-screen flex justify-center items-center p-8">
         {/* Main content goes here */}
         <div className="text-center">
-          <h1 className="text-5xl font-bold">
+          <img
+            src="../public/home_grad.jpg"
+            alt="Your Portrait"
+            className="rounded-full w-52 h-52 object-cover mx-auto mt-16"
+          />
+          <h1 className="text-5xl font-bold pt-4">
             {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
           </h1>
           <h2 className="text-2xl font-bold capitalize pt-4">
             Private <span className="text-sky-400">Math</span> Tutor{" "}
             <span className="text-sky-400">&amp;</span>
           </h2>
-          <h3 className="font-bold capitalize text-center pt-4 text-lg">
+          <h3 className="font-bold capitalize text-center pt-2 text-lg">
             True Hope <span className="text-sky-400">4</span> Success Tutoring
           </h3>
           {/* Learn More Button */}
           <button
             onClick={scrollToAbout}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-1000 ease-in-out inline-block m-4"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-1000 ease-in-out inline-block my-4"
           >
             Learn More
           </button>
         </div>
-      </section>
+      </main>
 
       {/* About Section */}
       <section id="about" className="bg-sky-50 py-16 text-sky-900">
