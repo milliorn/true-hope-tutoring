@@ -109,13 +109,13 @@ function App() {
       </nav>
 
       {/* Centered Content */}
-      <main className="w-full md:w-4/5 bg-sky-100 h-screen flex justify-center items-center p-8">
+      <main className="w-full md:w-4/5 bg-sky-100 flex justify-center items-center p-8">
         {/* Main content goes here */}
-        <div className="text-center">
+        <div className="text-center sm:mt-28">
           <img
             src="/home_grad.jpg"
-            alt="Your Portrait"
-            className="rounded-full w-52 h-52 object-cover mx-auto mt-16"
+            alt="Portrait"
+            className="rounded-full w-52 h-52 object-cover mx-auto mt-16 md:mt-0" // Add margin-top here
           />
           <h1 className="text-5xl font-bold pt-4">
             {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
@@ -140,7 +140,7 @@ function App() {
       {/* About Section */}
       <section id="about" className="bg-sky-50 py-16 text-sky-900">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold  text-center">About Me</h2>
+          <h2 className="text-3xl font-bold text-center pb-4">About Me</h2>
           <p className="m-4 text-left">
             Hello, I'm{" "}
             <span className="font-bold">{NAME_FIRST + " " + NAME_LAST}</span>, a
@@ -160,6 +160,7 @@ function App() {
             <span className="font-bold capitalize">honor graduate</span> status
             at both Fresno State University and Fresno City College.
           </p>
+          a
           <p className="m-4 text-left">
             With my extensive background, I specialize in various subjects
             including{" "}
@@ -181,7 +182,9 @@ function App() {
       {/* Qualifications Section */}
       <section id="qualifications" className="bg-sky-100 py-16 text-sky-900">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center">Qualifications</h2>
+          <h2 className="text-3xl font-bold text-center pb-4">
+            Qualifications
+          </h2>
           <ul className="list-none">
             <li className="m-4">
               <span className="font-bold">
@@ -212,7 +215,7 @@ function App() {
               <span className="font-bold">Tutoring Math</span>
             </li>
             <li className="m-4 text-left">
-              <span className="font-bold">Mother</span> of 4.
+              <span className="font-bold">Mother of 4</span>
             </li>
           </ul>
         </div>
@@ -221,7 +224,7 @@ function App() {
       {/* Availability Section */}
       <section id="availability" className="bg-sky-50 py-16 text-sky-900">
         <div className="container mx-auto capitalize">
-          <h2 className="text-3xl font-bold  text-center">Availability</h2>
+          <h2 className="text-3xl font-bold  text-center pb-4">Availability</h2>
           <h3 className="text-lg text-center m-4">
             I am available at the following locations:
           </h3>
@@ -240,7 +243,7 @@ function App() {
       {/* Rates Section */}
       <section id="rates" className="bg-sky-100 py-16 text-sky-900">
         <div className="container mx-auto text-center capitalize">
-          <h2 className="text-3xl font-bold">Rates</h2>
+          <h2 className="text-3xl font-bold pb-4">Rates</h2>
           <ul className="list-none">
             <li className="m-4">
               <span className="font-bold">
@@ -257,7 +260,7 @@ function App() {
       {/* Contact Section */}
       <section id="contact" className="bg-sky-50 py-16 text-sky-900">
         <div className="container mx-auto capitalize text-center font-bold">
-          <h2 className="text-3xl m-4">Contact</h2>
+          <h2 className="text-3xl pb-4">Contact</h2>
           <h3 className=" m-4"> True Hope 4 Success Tutoring</h3>
           <h3 className="m-4">
             <a className="cursor-pointer" href="tel:5599301934">
