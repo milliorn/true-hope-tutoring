@@ -113,7 +113,7 @@ function App() {
         {/* Main content goes here */}
         <div className="text-center">
           <img
-            src="../public/home_grad.jpg"
+            src="/home_grad.jpg"
             alt="Your Portrait"
             className="rounded-full w-52 h-52 object-cover mx-auto mt-16"
           />
@@ -142,25 +142,38 @@ function App() {
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold  text-center">About Me</h2>
           <p className="m-4 text-left">
-            Hello, I'm Hope True, a devoted math tutor with over 5 years of
-            experience. I have earned a Bachelor of Science in Sociology with a
-            Minor in Mathematics from Fresno State University and hold an
-            Associate's Degree in Mathematics from Fresno City College. I am
-            also a Certified Tutor accredited by the College Reading and
-            Learning Association (CRLA). Furthermore, I proudly achieved honor
-            graduate status at both Fresno State University and Fresno City
-            College.
+            Hello, I'm{" "}
+            <span className="font-bold">{NAME_FIRST + " " + NAME_LAST}</span>, a
+            devoted <span className="font-bold capitalize">math tutor</span>{" "}
+            with over <span className="font-bold">5 years</span> of experience.
+            I have earned a{" "}
+            <span className="font-bold">Bachelor of Science in Sociology</span>{" "}
+            with a <span className="font-bold">Minor in Mathematics</span> from
+            Fresno State University and hold an{" "}
+            <span className="font-bold">
+              Associate's Degree in Mathematics{" "}
+            </span>
+            from Fresno City College. I am also a{" "}
+            <span className="font-bold">Certified Tutor</span> accredited by the
+            College Reading and Learning Association (CRLA). Furthermore, I
+            proudly achieved{" "}
+            <span className="font-bold capitalize">honor graduate</span> status
+            at both Fresno State University and Fresno City College.
           </p>
           <p className="m-4 text-left">
             With my extensive background, I specialize in various subjects
-            including Algebra, Geometry, Trigonometry, Pre-Calculus, Calculus,
-            Statistics, and more. My passion lies in assisting students of all
-            levels, including those with learning disabilities, in achieving
-            their academic goals. Whether you prefer in-person tutoring in
-            Monterey, CA, or online sessions, I'm here to help. Plus, I bring
-            valuable experience as a mother of 4, making me particularly attuned
-            to the needs of young learners. Let's work together to excel in
-            mathematics!
+            including{" "}
+            <span className="font-bold">
+              Algebra, Geometry, Trigonometry, Pre-Calculus, Calculus,
+              Statistics
+            </span>
+            , and more. My passion lies in assisting students of all levels,
+            including those with learning disabilities, in achieving their
+            academic goals. Whether you prefer in-person tutoring in Monterey,
+            CA, or online sessions, I'm here to help. Plus, I bring valuable
+            experience as a <span className="font-bold">Mother of 4</span>,
+            making me particularly attuned to the needs of young learners. Let's
+            work together to excel in mathematics!
           </p>
         </div>
       </section>
