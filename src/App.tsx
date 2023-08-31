@@ -142,17 +142,25 @@ function App() {
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold  text-center">About Me</h2>
           <p className="m-4 text-left">
-            Hello, I'm Hope True, a dedicated math tutor with over 5 years of
-            experience. I hold a B.S. in Mathematics from Fresno State and am a
-            Certified Tutor. I'm passionate about helping students succeed, from
-            elementary to college level, including those with learning
-            disabilities.
+            Hello, I'm Hope True, a devoted math tutor with over 5 years of
+            experience. I have earned a Bachelor of Science in Sociology with a
+            Minor in Mathematics from Fresno State University and hold an
+            Associate's Degree in Mathematics from Fresno City College. I am
+            also a Certified Tutor accredited by the College Reading and
+            Learning Association (CRLA). Furthermore, I proudly achieved honor
+            graduate status at both Fresno State University and Fresno City
+            College.
           </p>
           <p className="m-4 text-left">
-            Whether in-person in Monterey, CA, or online, I specialize in
-            various subjects like Algebra, Geometry, Trigonometry, Pre-Calculus,
-            Calculus, Statistics, and more. Let's work together to achieve your
-            academic goals.
+            With my extensive background, I specialize in various subjects
+            including Algebra, Geometry, Trigonometry, Pre-Calculus, Calculus,
+            Statistics, and more. My passion lies in assisting students of all
+            levels, including those with learning disabilities, in achieving
+            their academic goals. Whether you prefer in-person tutoring in
+            Monterey, CA, or online sessions, I'm here to help. Plus, I bring
+            valuable experience as a mother of 4, making me particularly attuned
+            to the needs of young learners. Let's work together to excel in
+            mathematics!
           </p>
         </div>
       </section>
@@ -163,17 +171,32 @@ function App() {
           <h2 className="text-3xl font-bold text-center">Qualifications</h2>
           <ul className="list-none">
             <li className="m-4">
-              <span className="font-bold">B.S. in Mathematics</span> from
-              California State University, Fresno as an{" "}
-              <span className="font-bold">Honor Graduate</span>
+              <span className="font-bold">
+                Bachelor of Science in Sociology
+              </span>{" "}
+              from<span className="font-bold"> Fresno State University </span>{" "}
+              with a <span className="font-bold">Minor in Mathematics</span>
             </li>
             <li className="m-4 text-left">
-              <span className="font-bold">Certified Tutor</span> from the
-              College Reading and Learning Association (CRLA)
+              <span className="font-bold">
+                Associate's Degree in Mathematics{" "}
+              </span>
+              from <span className="font-bold">Fresno City College</span>
             </li>
             <li className="m-4 text-left">
-              <span className="font-bold">5+ Years</span> of experience tutoring
-              math
+              <span className="font-bold">Certified Tutor</span> from the{" "}
+              <span className="font-bold">
+                College Reading and Learning Association (CRLA)
+              </span>
+            </li>
+            <li className="m-4 text-left">
+              <span className="font-bold">Honor Graduate</span> at{" "}
+              <span className="font-bold">Fresno State University</span> and{" "}
+              <span className="font-bold">Fresno City College</span>
+            </li>
+            <li className="m-4 text-left">
+              <span className="font-bold">5+ Years</span> of Experience{" "}
+              <span className="font-bold">Tutoring Math</span>
             </li>
             <li className="m-4 text-left">
               <span className="font-bold">Mother</span> of 4.
