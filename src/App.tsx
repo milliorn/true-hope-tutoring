@@ -90,7 +90,7 @@ function App() {
             <li className="mb-2" key={item.id}>
               <a
                 href={`#${item.id}`}
-                className="block py-2 hover:text-sky-400"
+                className="block py-2 hover:text-sky-400 sm:text-lg"
                 onClick={() => handleSidebarItemClick(item.id)}
               >
                 {item.text}
@@ -102,11 +102,11 @@ function App() {
 
       {/* Centered Content */}
       <main
-        className="w-full md:w-4/5 bg-sky-100 flex justify-center items-center p-8"
+        className="w-full md:w-4/5 bg-sky-100 flex justify-center items-center"
         id="home"
       >
         {/* Main content goes here */}
-        <div className="text-center sm:mt-28">
+        <div className="text-center sm:mt-4">
           <img
             src={PORTRAIT}
             alt="PORTRAIT"
