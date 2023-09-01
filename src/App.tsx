@@ -1,40 +1,12 @@
-import React, { useState } from "react";
-
-const NAME_FIRST = "Hope";
-const NAME_LAST = "True";
-const NAVBAR_TITLE = "True Hope 4 Success";
-const PORTRAIT = "/home_grad.jpg";
-
-// Define an array of items for the sidebar
-const SIDEBAR_ITEMS = [
-  { id: "home", text: "Home" },
-  { id: "about", text: "About" },
-  { id: "qualifications", text: "Qualifications" },
-  { id: "availability", text: "Availability" },
-  { id: "rates", text: "Rates" },
-  { id: "contact", text: "Contact" },
-];
-
-const QUALIFICATIONS_TEXT = [
-  {
-    text: "Bachelor of Science in Sociology from Fresno State University with a Minor in Mathematics",
-  },
-  {
-    text: "Associate's Degree in Mathematics from Fresno City College",
-  },
-  {
-    text: "Certified Tutor from the College Reading and Learning Association (CRLA)",
-  },
-  {
-    text: "Honor Graduate at Fresno State University and Fresno City College",
-  },
-  {
-    text: "5+ Years of Experience Tutoring Math",
-  },
-  {
-    text: "Mother of 4",
-  },
-];
+import { useState } from "react";
+import {
+  NAVBAR_TITLE,
+  SIDEBAR_ITEMS,
+  PORTRAIT,
+  NAME_FIRST,
+  NAME_LAST,
+  QUALIFICATIONS_TEXT,
+} from "./data";
 
 function App() {
   // Define a state to track whether the sidebar (navbar) is open or closed
