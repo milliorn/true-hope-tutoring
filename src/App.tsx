@@ -14,16 +14,15 @@ function App() {
   };
 
   const scrollToAbout = () => {
-    const about = document.querySelector("#about");
-
-    // Wait briefly before scrolling
+    const el = document.querySelector("#about");
     setTimeout(() => {
-      about?.scrollIntoView({ behavior: "smooth" });
+      el?.scrollIntoView({ behavior: "smooth" });
+      setIsSidebarOpen(false);
     }, 200);
   };
 
   return (
-    <div className="scroll-behavior-smooth">
+    <div className="scroll-behavior-smooth mx-auto">
       {/* Top Navbar (Visible on Mobile) */}
       <nav
         className={`md:hidden fixed top-0 w-full`}
@@ -73,35 +72,56 @@ function App() {
         >
           {/* List of clickable anchor elements */}
           <li className="mb-2">
-            <a href="#" className="block py-2 hover:text-sky-400">
+            <a
+              href="#"
+              className="block py-2 hover:text-sky-400"
+              onClick={() => setIsSidebarOpen(false)}
+            >
               Home
             </a>
           </li>
           <li className="mb-2">
             <a
               href="#about"
-              className="scroll-link block py-2 hover:text-sky-400"
+              className="block py-2 hover:text-sky-400"
+              onClick={() => setIsSidebarOpen(false)}
             >
               About
             </a>
           </li>
           <li className="mb-2">
-            <a href="#qualifications" className="block py-2 hover:text-sky-400">
+            <a
+              href="#qualifications"
+              className="block py-2 hover:text-sky-400"
+              onClick={() => setIsSidebarOpen(false)}
+            >
               Qualifications
             </a>
           </li>
           <li className="mb-2">
-            <a href="#availability" className="block py-2 hover:text-sky-400">
+            <a
+              href="#availability"
+              className="block py-2 hover:text-sky-400"
+              onClick={() => setIsSidebarOpen(false)}
+            >
               Availability
             </a>
           </li>
           <li className="mb-2">
-            <a href="#rates" className="block py-2 hover:text-sky-400">
+            <a
+              href="#rates"
+              className="block py-2 hover:text-sky-400"
+              onClick={() => setIsSidebarOpen(false)}
+            >
               Rates
             </a>
           </li>
           <li className="mb-2">
-            <a href="#contact" className="block py-2 hover:text-sky-400">
+            <a
+              href="#contact"
+              className="block py-2 hover:text-sky-400"
+              onClick={() => setIsSidebarOpen(false)}
+            >
               Contact
             </a>
           </li>
@@ -160,7 +180,6 @@ function App() {
             <span className="font-bold capitalize">honor graduate</span> status
             at both Fresno State University and Fresno City College.
           </p>
-          a
           <p className="m-4 text-left">
             With my extensive background, I specialize in various subjects
             including{" "}
