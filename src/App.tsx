@@ -50,7 +50,7 @@ function App() {
       >
         {/* Hamburger Button */}
         <div className="flex justify-between items-center py-2 px-4">
-          <div className="text-sky-50 text-2xl">{NAVBAR_TITLE}</div>
+          <div className="text-sky-50 text-2xl sm:text-3xl">{NAVBAR_TITLE}</div>
           <button
             onClick={toggleSidebar}
             className="text-sky-200 hover:text-sky-100 focus:outline-none focus:text-sky-100 border rounded border-sky-200"
@@ -112,20 +112,20 @@ function App() {
             alt="PORTRAIT"
             className="rounded-full w-52 h-52 object-cover mx-auto mt-16 md:mt-0"
           />
-          <h1 className="text-5xl font-bold pt-4">
+          <h1 className="text-5xl sm:text-6xl font-bold pt-4">
             {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
           </h1>
-          <h2 className="text-2xl font-bold capitalize pt-4">
+          <h2 className="text-2xl sm:text-3xl font-bold capitalize pt-4">
             Private <span className="text-sky-400">Math</span> Tutor{" "}
             <span className="text-sky-400">&amp;</span>
           </h2>
-          <h3 className="font-bold capitalize text-center pt-2 text-lg">
+          <h3 className="font-bold capitalize text-center pt-2 text-lg sm:text-xl">
             True Hope <span className="text-sky-400">4</span> Success Tutoring
           </h3>
           {/* Learn More Button */}
           <button
             onClick={scrollToAbout}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-1000 ease-in-out inline-block my-4"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-1000 ease-in-out inline-block my-4  sm:text-lg"
           >
             Learn More
           </button>
@@ -135,8 +135,10 @@ function App() {
       {/* About Section */}
       <section id="about" className="bg-sky-50 py-16 text-sky-900">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center pb-4">About Me</h2>
-          <p className="m-4 text-left">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center pb-4">
+            About Me
+          </h2>
+          <p className="m-4 text-left sm:text-lg">
             Hello, I'm{" "}
             <span className="font-bold">{NAME_FIRST + " " + NAME_LAST}</span>, a
             devoted <span className="font-bold capitalize">math tutor</span>{" "}
@@ -155,7 +157,7 @@ function App() {
             <span className="font-bold capitalize">honor graduate</span> status
             at both Fresno State University and Fresno City College.
           </p>
-          <p className="m-4 text-left">
+          <p className="m-4 text-left sm:text-lg">
             With my extensive background, I specialize in various subjects
             including{" "}
             <span className="font-bold">
@@ -176,13 +178,13 @@ function App() {
       {/* Qualifications Section */}
       <section id="qualifications" className="bg-sky-100 py-16 text-sky-900">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center pb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center pb-4">
             Qualifications
           </h2>
           <ul className="list-none">
             {QUALIFICATIONS_TEXT.map((item, index) => (
               <li key={index} className="m-4 text-left">
-                <span className="font-bold">{item.text}</span>
+                <span className="font-bold sm:text-lg">{item.text}</span>
               </li>
             ))}
           </ul>
@@ -192,11 +194,13 @@ function App() {
       {/* Availability Section */}
       <section id="availability" className="bg-sky-50 py-16 text-sky-900">
         <div className="container mx-auto capitalize">
-          <h2 className="text-3xl font-bold  text-center pb-4">Availability</h2>
-          <h3 className="text-lg text-center m-4">
+          <h2 className="text-3xl sm:text-4xl font-bold  text-center pb-4">
+            Availability
+          </h2>
+          <h3 className="text-lg sm:text-xl text-center mt-4 mb-8">
             I am available at the following locations:
           </h3>
-          <ul className="font-bold list-none text-center">
+          <ul className="font-bold list-none text-center sm:text-lg">
             <li className="m-4 cursor-pointer hover:text-sky-400">
               <a href="https://www.google.com/maps/place/2100+Garden+Rd+c312,+Monterey,+CA+93940">
                 2100 Garden Rd c312, Monterey, CA 93940
@@ -210,8 +214,8 @@ function App() {
 
       {/* Rates Section */}
       <section id="rates" className="bg-sky-100 py-16 text-sky-900">
-        <div className="container mx-auto text-center capitalize">
-          <h2 className="text-3xl font-bold pb-4">Rates</h2>
+        <div className="container mx-auto text-center capitalize sm:text-lg">
+          <h2 className="text-3xl sm:text-4xl font-bold pb-4">Rates</h2>
           <ul className="list-none">
             <li className="m-4">
               <span className="font-bold">
@@ -227,9 +231,9 @@ function App() {
 
       {/* Contact Section */}
       <section id="contact" className="bg-sky-50 py-16 text-sky-900">
-        <div className="container mx-auto capitalize text-center font-bold">
-          <h2 className="text-3xl pb-4">Contact</h2>
-          <h3 className=" m-4"> True Hope 4 Success Tutoring</h3>
+        <div className="container mx-auto capitalize text-center font-bold sm:text-lg">
+          <h2 className="text-3xl sm:text-4xl pb-4">Contact</h2>
+          <h3 className=" m-4">True Hope 4 Success Tutoring</h3>
           <h3 className="m-4">
             <a className="cursor-pointer" href="tel:5599301934">
               Phone: (559) 930-1934
