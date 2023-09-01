@@ -4,6 +4,16 @@ const NAME_FIRST = "Hope";
 const NAME_LAST = "True";
 const NAVBAR_TITLE = "True Hope 4 Success";
 
+// Define an array of items for the sidebar
+const sidebarItems = [
+  { id: "home", text: "Home" },
+  { id: "about", text: "About" },
+  { id: "qualifications", text: "Qualifications" },
+  { id: "availability", text: "Availability" },
+  { id: "rates", text: "Rates" },
+  { id: "contact", text: "Contact" },
+];
+
 function App() {
   // Define a state to track whether the sidebar (navbar) is open or closed
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -19,6 +29,18 @@ function App() {
       el?.scrollIntoView({ behavior: "smooth" });
       setIsSidebarOpen(false);
     }, 200);
+  };
+
+  // Function to handle clicking on a sidebar item
+  const handleSidebarItemClick = (id: string) => {
+    // Scroll to the corresponding section
+    const element = document.querySelector(`#${id}`);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Close the sidebar
+    setIsSidebarOpen(false);
   };
 
   return (
@@ -61,8 +83,8 @@ function App() {
             </svg>
           </button>
         </div>
-
         {/* Dropdown Navigation */}
+        {/* Render the sidebar items */}
         <ul
           className={`${
             isSidebarOpen
@@ -70,66 +92,25 @@ function App() {
               : "max-h-0 opacity-0 transition-all duration-1000 ease-in-out"
           } overflow-hidden text-sky-50 ml-4`}
         >
-          {/* List of clickable anchor elements */}
-          <li className="mb-2">
-            <a
-              href="#"
-              className="block py-2 hover:text-sky-400"
-              onClick={() => setIsSidebarOpen(false)}
-            >
-              Home
-            </a>
-          </li>
-          <li className="mb-2">
-            <a
-              href="#about"
-              className="block py-2 hover:text-sky-400"
-              onClick={() => setIsSidebarOpen(false)}
-            >
-              About
-            </a>
-          </li>
-          <li className="mb-2">
-            <a
-              href="#qualifications"
-              className="block py-2 hover:text-sky-400"
-              onClick={() => setIsSidebarOpen(false)}
-            >
-              Qualifications
-            </a>
-          </li>
-          <li className="mb-2">
-            <a
-              href="#availability"
-              className="block py-2 hover:text-sky-400"
-              onClick={() => setIsSidebarOpen(false)}
-            >
-              Availability
-            </a>
-          </li>
-          <li className="mb-2">
-            <a
-              href="#rates"
-              className="block py-2 hover:text-sky-400"
-              onClick={() => setIsSidebarOpen(false)}
-            >
-              Rates
-            </a>
-          </li>
-          <li className="mb-2">
-            <a
-              href="#contact"
-              className="block py-2 hover:text-sky-400"
-              onClick={() => setIsSidebarOpen(false)}
-            >
-              Contact
-            </a>
-          </li>
+          {sidebarItems.map((item) => (
+            <li className="mb-2" key={item.id}>
+              <a
+                href={`#${item.id}`}
+                className="block py-2 hover:text-sky-400"
+                onClick={() => handleSidebarItemClick(item.id)}
+              >
+                {item.text}
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
 
       {/* Centered Content */}
-      <main className="w-full md:w-4/5 bg-sky-100 flex justify-center items-center p-8">
+      <main
+        className="w-full md:w-4/5 bg-sky-100 flex justify-center items-center p-8"
+        id="home"
+      >
         {/* Main content goes here */}
         <div className="text-center sm:mt-28">
           <img
