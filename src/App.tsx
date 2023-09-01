@@ -3,15 +3,37 @@ import React, { useState } from "react";
 const NAME_FIRST = "Hope";
 const NAME_LAST = "True";
 const NAVBAR_TITLE = "True Hope 4 Success";
+const PORTRAIT = "/home_grad.jpg";
 
 // Define an array of items for the sidebar
-const sidebarItems = [
+const SIDEBAR_ITEMS = [
   { id: "home", text: "Home" },
   { id: "about", text: "About" },
   { id: "qualifications", text: "Qualifications" },
   { id: "availability", text: "Availability" },
   { id: "rates", text: "Rates" },
   { id: "contact", text: "Contact" },
+];
+
+const QUALIFICATIONS_TEXT = [
+  {
+    text: "Bachelor of Science in Sociology from Fresno State University with a Minor in Mathematics",
+  },
+  {
+    text: "Associate's Degree in Mathematics from Fresno City College",
+  },
+  {
+    text: "Certified Tutor from the College Reading and Learning Association (CRLA)",
+  },
+  {
+    text: "Honor Graduate at Fresno State University and Fresno City College",
+  },
+  {
+    text: "5+ Years of Experience Tutoring Math",
+  },
+  {
+    text: "Mother of 4",
+  },
 ];
 
 function App() {
@@ -92,7 +114,7 @@ function App() {
               : "max-h-0 opacity-0 transition-all duration-1000 ease-in-out"
           } overflow-hidden text-sky-50 ml-4`}
         >
-          {sidebarItems.map((item) => (
+          {SIDEBAR_ITEMS.map((item) => (
             <li className="mb-2" key={item.id}>
               <a
                 href={`#${item.id}`}
@@ -114,9 +136,9 @@ function App() {
         {/* Main content goes here */}
         <div className="text-center sm:mt-28">
           <img
-            src="/home_grad.jpg"
-            alt="Portrait"
-            className="rounded-full w-52 h-52 object-cover mx-auto mt-16 md:mt-0" // Add margin-top here
+            src={PORTRAIT}
+            alt="PORTRAIT"
+            className="rounded-full w-52 h-52 object-cover mx-auto mt-16 md:mt-0"
           />
           <h1 className="text-5xl font-bold pt-4">
             {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
@@ -186,37 +208,11 @@ function App() {
             Qualifications
           </h2>
           <ul className="list-none">
-            <li className="m-4">
-              <span className="font-bold">
-                Bachelor of Science in Sociology
-              </span>{" "}
-              from<span className="font-bold"> Fresno State University </span>{" "}
-              with a <span className="font-bold">Minor in Mathematics</span>
-            </li>
-            <li className="m-4 text-left">
-              <span className="font-bold">
-                Associate's Degree in Mathematics{" "}
-              </span>
-              from <span className="font-bold">Fresno City College</span>
-            </li>
-            <li className="m-4 text-left">
-              <span className="font-bold">Certified Tutor</span> from the{" "}
-              <span className="font-bold">
-                College Reading and Learning Association (CRLA)
-              </span>
-            </li>
-            <li className="m-4 text-left">
-              <span className="font-bold">Honor Graduate</span> at{" "}
-              <span className="font-bold">Fresno State University</span> and{" "}
-              <span className="font-bold">Fresno City College</span>
-            </li>
-            <li className="m-4 text-left">
-              <span className="font-bold">5+ Years</span> of Experience{" "}
-              <span className="font-bold">Tutoring Math</span>
-            </li>
-            <li className="m-4 text-left">
-              <span className="font-bold">Mother of 4</span>
-            </li>
+            {QUALIFICATIONS_TEXT.map((item, index) => (
+              <li key={index} className="m-4 text-left">
+                <span className="font-bold">{item.text}</span>
+              </li>
+            ))}
           </ul>
         </div>
       </section>
