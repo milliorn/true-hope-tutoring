@@ -205,64 +205,85 @@ function App() {
             />
           </section>
         </div>
-      </main>
 
-      {/* Availability Section */}
-      <section id="availability" className="bg-sky-50 py-16 text-sky-900">
-        <div className="container mx-auto capitalize">
-          <h2 className="text-3xl sm:text-4xl font-bold  text-center pb-4">
-            Availability
-          </h2>
-          <h3 className="text-lg sm:text-xl text-center mt-4 mb-8">
-            I am available at the following locations:
-          </h3>
-          <ul className="font-bold list-none text-center sm:text-lg">
-            <li className="m-4 cursor-pointer hover:text-sky-400">
-              <a href="https://www.google.com/maps/place/2100+Garden+Rd+c312,+Monterey,+CA+93940">
-                2100 Garden Rd c312, Monterey, CA 93940
+        {/* Qualifications Section */}
+        <section
+          id="qualifications"
+          className="bg-sky-100 py-16 text-sky-900 md:col-span-1 md:row-start-3 md:pl-40 md:h-screen flex justify-center items-center"
+        >
+          <div className="container mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-bold pb-4 text-center md:text-5xl">
+              Qualifications
+            </h2>
+            <ul className="list-none">
+              {QUALIFICATIONS_TEXT.map((item, index) => (
+                <li key={index} className="m-4">
+                  <span className="font-bold sm:text-lg md:text-xl">
+                    {item.text}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* Availability Section */}
+        <section id="availability" className="bg-sky-50 py-16 text-sky-900">
+          <div className="container mx-auto capitalize">
+            <h2 className="text-3xl sm:text-4xl font-bold  text-center pb-4">
+              Availability
+            </h2>
+            <h3 className="text-lg sm:text-xl text-center mt-4 mb-8">
+              I am available at the following locations:
+            </h3>
+            <ul className="font-bold list-none text-center sm:text-lg">
+              <li className="m-4 cursor-pointer hover:text-sky-400">
+                <a href="https://www.google.com/maps/place/2100+Garden+Rd+c312,+Monterey,+CA+93940">
+                  2100 Garden Rd c312, Monterey, CA 93940
+                </a>
+              </li>
+              <li className="m-4">Zoom</li>
+              <li className="m-4">At your home ($25.00 travel fee)</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Rates Section */}
+        <section id="rates" className="bg-sky-100 py-16 text-sky-900">
+          <div className="container mx-auto text-center capitalize sm:text-lg">
+            <h2 className="text-3xl sm:text-4xl font-bold pb-4">Rates</h2>
+            <ul className="list-none">
+              <li className="m-4">
+                <span className="font-bold">
+                  Call or email for pricing information
+                </span>
+              </li>
+              <li className="m-4">
+                <span className="font-bold">Group rates available</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="bg-sky-50 py-16 text-sky-900">
+          <div className="container mx-auto capitalize text-center font-bold sm:text-lg">
+            <h2 className="text-3xl sm:text-4xl pb-4">Contact</h2>
+            <h3 className=" m-4">True Hope 4 Success Tutoring</h3>
+            <h3 className="m-4">
+              <a className="cursor-pointer" href="tel:5599301934">
+                Phone: (559) 930-1934
               </a>
-            </li>
-            <li className="m-4">Zoom</li>
-            <li className="m-4">At your home ($25.00 travel fee)</li>
-          </ul>
-        </div>
-      </section>
-
-      {/* Rates Section */}
-      <section id="rates" className="bg-sky-100 py-16 text-sky-900">
-        <div className="container mx-auto text-center capitalize sm:text-lg">
-          <h2 className="text-3xl sm:text-4xl font-bold pb-4">Rates</h2>
-          <ul className="list-none">
-            <li className="m-4">
-              <span className="font-bold">
-                Call or email for pricing information
-              </span>
-            </li>
-            <li className="m-4">
-              <span className="font-bold">Group rates available</span>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="bg-sky-50 py-16 text-sky-900">
-        <div className="container mx-auto capitalize text-center font-bold sm:text-lg">
-          <h2 className="text-3xl sm:text-4xl pb-4">Contact</h2>
-          <h3 className=" m-4">True Hope 4 Success Tutoring</h3>
-          <h3 className="m-4">
-            <a className="cursor-pointer" href="tel:5599301934">
-              Phone: (559) 930-1934
-            </a>
-          </h3>
-          <h3 className="m-4">
-            <a className="mailto" href="mailto:truehopetutoring@gmail.com">
-              Email:{" "}
-              <span className="lowercase">truehopetutoring@gmail.com</span>
-            </a>
-          </h3>
-        </div>
-      </section>
+            </h3>
+            <h3 className="m-4">
+              <a className="mailto" href="mailto:truehopetutoring@gmail.com">
+                Email:{" "}
+                <span className="lowercase">truehopetutoring@gmail.com</span>
+              </a>
+            </h3>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
