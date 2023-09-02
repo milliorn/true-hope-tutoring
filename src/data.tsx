@@ -1,8 +1,10 @@
 export const NAME_FIRST = "Hope";
 export const NAME_LAST = "True";
 export const NAVBAR_TITLE = "True Hope 4 Success";
-export const PORTRAIT = "/home_grad.jpg";
+export const PORTRAIT = "/portrait_1.jpg";
 export const ABOUT_IMG = "/about_family.jpg";
+export const QUALIFICATIONS_IMG = "/qualifications.jpg";
+export const AVAILABILITY_IMG = "/availability.png";
 
 // Define an array of items for the sidebar
 export const SIDEBAR_ITEMS = [
