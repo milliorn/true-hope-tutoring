@@ -6,6 +6,7 @@ import {
   NAME_FIRST,
   NAME_LAST,
   QUALIFICATIONS_TEXT,
+  ABOUT_IMG,
 } from "./data";
 
 function App() {
@@ -125,22 +126,22 @@ function App() {
             <img
               src={PORTRAIT}
               alt="PORTRAIT"
-              className="rounded-full w-52 h-52 sm:w-56 sm:h-56 md:w-60 md:h-60 object-cover mx-auto mt-16 md:mt-0"
+              className="rounded-full w-56 h-56 sm:w-60 sm:h-60 md:w-64 md:h-64 object-cover mx-auto mt-16 md:mt-0"
             />
-            <h1 className="text-5xl sm:text-6xl font-bold pt-4">
+            <h1 className="text-5xl sm:text-6xl font-bold pt-4 md:text-7xl">
               {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
             </h1>
-            <h2 className="text-2xl sm:text-3xl font-bold capitalize pt-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold capitalize pt-4">
               Private <span className="text-sky-400">Math</span> Tutor{" "}
               <span className="text-sky-400">&amp;</span>
             </h2>
-            <h3 className="font-bold capitalize text-center pt-2 text-lg sm:text-xl">
+            <h3 className="font-bold capitalize text-center pt-2 sm:pt-4 text-lg sm:text-xl md:text-2xl">
               True Hope <span className="text-sky-400">4</span> Success Tutoring
             </h3>
             {/* Learn More Button */}
             <button
               onClick={scrollToAbout}
-              className="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-1000 ease-in-out inline-block my-4  sm:text-lg"
+              className="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-1000 ease-in-out inline-block my-8 sm:text-lg md:text-xl"
             >
               Learn More
             </button>
@@ -149,13 +150,13 @@ function App() {
           {/* About Section */}
           <section
             id="about"
-            className="bg-sky-50 py-16 text-sky-900 md:col-span-1 md:row-start-2"
+            className="bg-sky-50 py-16 text-sky-900 md:col-span-1 md:row-start-2 flex flex-col items-center"
           >
-            <div className="container mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-bold text-center pb-4">
+            <div className="mx-auto">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center pb-4">
                 About Me
               </h2>
-              <p className="m-4 text-left sm:text-lg">
+              <p className="m-4 text-left sm:text-lg md:text-lg">
                 Hello, I'm{" "}
                 <span className="font-bold">
                   {NAME_FIRST + " " + NAME_LAST}
@@ -179,7 +180,7 @@ function App() {
                 <span className="font-bold capitalize">honor graduate</span>{" "}
                 status at both Fresno State University and Fresno City College.
               </p>
-              <p className="m-4 text-left sm:text-lg">
+              <p className="m-4 text-left sm:text-lg md:text-lg">
                 With my extensive background, I specialize in various subjects
                 including{" "}
                 <span className="font-bold">
@@ -196,25 +197,15 @@ function App() {
                 together to excel in mathematics!
               </p>
             </div>
+            {/* Show image only on md and above viewport */}
+            <img
+              src={ABOUT_IMG} // Replace with the path to your image
+              alt="ABOUT_IMG"
+              className="rounded-3xl border-2	border-sky-600 w-96 h-96 object-cover mx-auto mb-4 md:block hidden"
+            />
           </section>
         </div>
       </main>
-
-      {/* Qualifications Section */}
-      <section id="qualifications" className="bg-sky-100 py-16 text-sky-900">
-        <div className="container mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center pb-4">
-            Qualifications
-          </h2>
-          <ul className="list-none">
-            {QUALIFICATIONS_TEXT.map((item, index) => (
-              <li key={index} className="m-4 text-left">
-                <span className="font-bold sm:text-lg">{item.text}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
 
       {/* Availability Section */}
       <section id="availability" className="bg-sky-50 py-16 text-sky-900">
