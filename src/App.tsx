@@ -41,12 +41,11 @@ function App() {
     <div className="scroll-behavior-smooth mx-auto">
       {/* Top Navbar (Visible on Mobile) */}
       <nav
-        className={`md:hidden fixed top-0 w-full`}
-        style={{
-          background: isSidebarOpen
-            ? "linear-gradient(to bottom, #082f49, #6B7280)"
-            : "linear-gradient(to bottom, #082f49, #082f49)",
-        }}
+        className={`md:hidden fixed top-0 w-full ${
+          isSidebarOpen
+            ? "bg-gradient-to-b from-sky-800 to-sky-600"
+            : "bg-gradient-to-b from-sky-800 to-sky-600"
+        }`}
       >
         {/* Hamburger Button */}
         <div className="flex justify-between items-center py-2 px-4">
@@ -100,9 +99,27 @@ function App() {
         </ul>
       </nav>
 
+      {/* Sidebar (Visible on md and larger screens) */}
+      <nav
+        className={`hidden md:block fixed top-0 h-full py-4 px-4 bg-gradient-to-b from-sky-800 to-sky-600`}
+      >
+        <div className="text-white text-center h-full flex flex-col justify-center">
+          {SIDEBAR_ITEMS.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className="block py-2 hover:text-sky-400 sm:text-lg"
+              onClick={() => handleSidebarItemClick(item.id)}
+            >
+              {item.text}
+            </a>
+          ))}
+        </div>
+      </nav>
+
       {/* Centered Content */}
       <main
-        className="w-full md:w-4/5 bg-sky-100 flex justify-center items-center"
+        className="w-full bg-sky-100 flex justify-center items-center"
         id="home"
       >
         {/* Main content goes here */}
@@ -110,7 +127,7 @@ function App() {
           <img
             src={PORTRAIT}
             alt="PORTRAIT"
-            className="rounded-full w-52 h-52 object-cover mx-auto mt-16 md:mt-0"
+            className="rounded-full w-52 h-52 object-cover mx-auto mt-16 md:mt-4"
           />
           <h1 className="text-5xl sm:text-6xl font-bold pt-4">
             {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
@@ -125,7 +142,7 @@ function App() {
           {/* Learn More Button */}
           <button
             onClick={scrollToAbout}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-1000 ease-in-out inline-block my-4  sm:text-lg"
+            className="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-1000 ease-in-out inline-block my-4  sm:text-lg"
           >
             Learn More
           </button>
