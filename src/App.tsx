@@ -118,79 +118,87 @@ function App() {
       </nav>
 
       {/* Centered Content */}
-      <main
-        className="w-full bg-sky-100 flex justify-center items-center"
-        id="home"
-      >
-        {/* Main content goes here */}
-        <div className="text-center sm:mt-4">
-          <img
-            src={PORTRAIT}
-            alt="PORTRAIT"
-            className="rounded-full w-52 h-52 object-cover mx-auto mt-16 md:mt-4"
-          />
-          <h1 className="text-5xl sm:text-6xl font-bold pt-4">
-            {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
-          </h1>
-          <h2 className="text-2xl sm:text-3xl font-bold capitalize pt-4">
-            Private <span className="text-sky-400">Math</span> Tutor{" "}
-            <span className="text-sky-400">&amp;</span>
-          </h2>
-          <h3 className="font-bold capitalize text-center pt-2 text-lg sm:text-xl">
-            True Hope <span className="text-sky-400">4</span> Success Tutoring
-          </h3>
-          {/* Learn More Button */}
-          <button
-            onClick={scrollToAbout}
-            className="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-1000 ease-in-out inline-block my-4  sm:text-lg"
+      <main className="w-full bg-sky-100" id="home">
+        <div className="md:grid md:grid-cols-1 md:grid-rows-2 md:grid-flow-col md:gap-4 md:pl-36">
+          {/* Main content goes here */}
+          <div className="text-center md:col-span-1 sm:mt-4 md:h-screen flex flex-col justify-center items-center">
+            <img
+              src={PORTRAIT}
+              alt="PORTRAIT"
+              className="rounded-full w-52 h-52 sm:w-56 sm:h-56 md:w-60 md:h-60 object-cover mx-auto mt-16 md:mt-0"
+            />
+            <h1 className="text-5xl sm:text-6xl font-bold pt-4">
+              {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
+            </h1>
+            <h2 className="text-2xl sm:text-3xl font-bold capitalize pt-4">
+              Private <span className="text-sky-400">Math</span> Tutor{" "}
+              <span className="text-sky-400">&amp;</span>
+            </h2>
+            <h3 className="font-bold capitalize text-center pt-2 text-lg sm:text-xl">
+              True Hope <span className="text-sky-400">4</span> Success Tutoring
+            </h3>
+            {/* Learn More Button */}
+            <button
+              onClick={scrollToAbout}
+              className="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-1000 ease-in-out inline-block my-4  sm:text-lg"
+            >
+              Learn More
+            </button>
+          </div>
+
+          {/* About Section */}
+          <section
+            id="about"
+            className="bg-sky-50 py-16 text-sky-900 md:col-span-1 md:row-start-2"
           >
-            Learn More
-          </button>
+            <div className="container mx-auto">
+              <h2 className="text-3xl sm:text-4xl font-bold text-center pb-4">
+                About Me
+              </h2>
+              <p className="m-4 text-left sm:text-lg">
+                Hello, I'm{" "}
+                <span className="font-bold">
+                  {NAME_FIRST + " " + NAME_LAST}
+                </span>
+                , a devoted{" "}
+                <span className="font-bold capitalize">math tutor</span> with
+                over <span className="font-bold">5 years</span> of experience. I
+                have earned a{" "}
+                <span className="font-bold">
+                  Bachelor of Science in Sociology
+                </span>{" "}
+                with a <span className="font-bold">Minor in Mathematics</span>{" "}
+                from Fresno State University and hold an{" "}
+                <span className="font-bold">
+                  Associate's Degree in Mathematics{" "}
+                </span>
+                from Fresno City College. I am also a{" "}
+                <span className="font-bold">Certified Tutor</span> accredited by
+                the College Reading and Learning Association (CRLA).
+                Furthermore, I proudly achieved{" "}
+                <span className="font-bold capitalize">honor graduate</span>{" "}
+                status at both Fresno State University and Fresno City College.
+              </p>
+              <p className="m-4 text-left sm:text-lg">
+                With my extensive background, I specialize in various subjects
+                including{" "}
+                <span className="font-bold">
+                  Algebra, Geometry, Trigonometry, Pre-Calculus, Calculus,
+                  Statistics
+                </span>
+                , and more. My passion lies in assisting students of all levels,
+                including those with learning disabilities, in achieving their
+                academic goals. Whether you prefer in-person tutoring in
+                Monterey, CA, or online sessions, I'm here to help. Plus, I
+                bring valuable experience as a{" "}
+                <span className="font-bold">Mother of 4</span>, making me
+                particularly attuned to the needs of young learners. Let's work
+                together to excel in mathematics!
+              </p>
+            </div>
+          </section>
         </div>
       </main>
-
-      {/* About Section */}
-      <section id="about" className="bg-sky-50 py-16 text-sky-900">
-        <div className="container mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center pb-4">
-            About Me
-          </h2>
-          <p className="m-4 text-left sm:text-lg">
-            Hello, I'm{" "}
-            <span className="font-bold">{NAME_FIRST + " " + NAME_LAST}</span>, a
-            devoted <span className="font-bold capitalize">math tutor</span>{" "}
-            with over <span className="font-bold">5 years</span> of experience.
-            I have earned a{" "}
-            <span className="font-bold">Bachelor of Science in Sociology</span>{" "}
-            with a <span className="font-bold">Minor in Mathematics</span> from
-            Fresno State University and hold an{" "}
-            <span className="font-bold">
-              Associate's Degree in Mathematics{" "}
-            </span>
-            from Fresno City College. I am also a{" "}
-            <span className="font-bold">Certified Tutor</span> accredited by the
-            College Reading and Learning Association (CRLA). Furthermore, I
-            proudly achieved{" "}
-            <span className="font-bold capitalize">honor graduate</span> status
-            at both Fresno State University and Fresno City College.
-          </p>
-          <p className="m-4 text-left sm:text-lg">
-            With my extensive background, I specialize in various subjects
-            including{" "}
-            <span className="font-bold">
-              Algebra, Geometry, Trigonometry, Pre-Calculus, Calculus,
-              Statistics
-            </span>
-            , and more. My passion lies in assisting students of all levels,
-            including those with learning disabilities, in achieving their
-            academic goals. Whether you prefer in-person tutoring in Monterey,
-            CA, or online sessions, I'm here to help. Plus, I bring valuable
-            experience as a <span className="font-bold">Mother of 4</span>,
-            making me particularly attuned to the needs of young learners. Let's
-            work together to excel in mathematics!
-          </p>
-        </div>
-      </section>
 
       {/* Qualifications Section */}
       <section id="qualifications" className="bg-sky-100 py-16 text-sky-900">
