@@ -1,10 +1,12 @@
+export const ABOUT_IMG = "/about_family.jpg";
+export const AVAILABILITY_IMG = "/availability.png";
+export const CONTACT = "/portrait_2.jpg";
 export const NAME_FIRST = "Hope";
 export const NAME_LAST = "True";
 export const NAVBAR_TITLE = "True Hope 4 Success";
 export const PORTRAIT = "/portrait_1.jpg";
-export const ABOUT_IMG = "/about_family.jpg";
 export const QUALIFICATIONS_IMG = "/qualifications.jpg";
-export const AVAILABILITY_IMG = "/availability.png";
+export const EMAIL_ADDRESS = "truehopetutoring@gmail.com";
 
 // Define an array of items for the sidebar
 export const SIDEBAR_ITEMS = [

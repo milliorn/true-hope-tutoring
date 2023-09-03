@@ -9,6 +9,8 @@ import {
   ABOUT_IMG,
   QUALIFICATIONS_IMG,
   AVAILABILITY_IMG,
+  CONTACT,
+  EMAIL_ADDRESS,
 } from "./data";
 
 function App() {
@@ -278,19 +280,33 @@ function App() {
           </section>
 
           {/* Contact Section */}
-          <section id="contact" className="bg-sky-50 py-16">
+          <section
+            id="contact"
+            className="bg-sky-50 flex justify-center items-center h-screen"
+          >
             <div className="container mx-auto capitalize text-center font-bold sm:text-lg">
+              {/* Show image only on md and above viewport */}
+              <img
+                src={CONTACT}
+                alt="CONTACT"
+                className="rounded-3xl border-2	border-sky-600 w-96 h-96 object-cover mx-auto mb-4 md:mb-12 md:block hidden"
+              />
               <h2 className="text-3xl sm:text-4xl pb-4">Contact</h2>
-              <h3 className=" m-4">True Hope 4 Success Tutoring</h3>
+              <h3 className="m-4">True Hope 4 Success Tutoring</h3>
               <h3 className="m-4">
-                <a className="cursor-pointer" href="tel:5599301934">
+                <a
+                  className="cursor-pointer hover:text-sky-800"
+                  href="tel:5599301934"
+                >
                   Phone: (559) 930-1934
                 </a>
               </h3>
               <h3 className="m-4">
-                <a className="mailto" href="mailto:truehopetutoring@gmail.com">
-                  Email:{" "}
-                  <span className="lowercase">truehopetutoring@gmail.com</span>
+                <a
+                  className="cursor-pointer hover:text-sky-800"
+                  href={`mailto:${EMAIL_ADDRESS}`}
+                >
+                  Email: <span className="lowercase">{EMAIL_ADDRESS}</span>
                 </a>
               </h3>
             </div>
