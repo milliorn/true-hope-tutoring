@@ -126,7 +126,7 @@ function App() {
       <main className="w-full bg-sky-100 text-sky-950" id="home">
         <div className="md:grid md:grid-cols-1 md:grid-rows-6 md:grid-flow-col md:gap-4 md:pl-36">
           {/* Main content goes here */}
-          <section className="text-center sm:mt-4 md:mt-28 md:h-full flex flex-col justify-center items-center">
+          <section className="text-center sm:mt-4 md:mt-0 md:h-full flex flex-col justify-center items-center">
             <img
               src={PORTRAIT}
               alt="PORTRAIT"
