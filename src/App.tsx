@@ -126,7 +126,7 @@ function App() {
       <main className="w-full bg-sky-100 text-sky-950" id="home">
         <div className="md:grid md:grid-cols-1 md:grid-rows-6 md:grid-flow-col md:gap-4 md:pl-36">
           {/* Main content goes here */}
-          <div className="text-center md:col-span-1 sm:mt-4 md:mt-28 md:h-screen flex flex-col justify-center items-center">
+          <section className="text-center sm:mt-4 md:mt-28 md:h-full flex flex-col justify-center items-center">
             <img
               src={PORTRAIT}
               alt="PORTRAIT"
@@ -149,10 +149,10 @@ function App() {
             >
               Learn More
             </button>
-          </div>
+          </section>
 
           {/* About Section */}
-          <section id="about" className="bg-sky-50 py-16">
+          <section id="about" className="bg-sky-50 py-16 md:h-full">
             <div className="mx-auto">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center pb-4">
                 About Me
@@ -207,7 +207,7 @@ function App() {
           </section>
 
           {/* Qualifications Section */}
-          <section id="qualifications" className="bg-sky-100 py-16">
+          <section id="qualifications" className="bg-sky-100 py-16 md:h-full">
             <div className="container mx-auto">
               <h2 className="text-3xl sm:text-4xl font-bold pb-4 md:pb-8 text-center md:text-5xl">
                 Qualifications
@@ -233,7 +233,7 @@ function App() {
           {/* Availability Section */}
           <section
             id="availability"
-            className="bg-sky-50 py-16 md:py-32 h-screen flex justify-center items-center md:items-start"
+            className="bg-sky-50 py-16 h-full flex flex-col justify-center items-center md:h-full"
           >
             <div className="container mx-auto text-center">
               <div className="flex flex-col items-center">
@@ -263,7 +263,7 @@ function App() {
           </section>
 
           {/* Rates Section */}
-          <section id="rates" className="bg-sky-100 py-16">
+          <section id="rates" className="bg-sky-100 py-16 md:h-full">
             <div className="container mx-auto text-center capitalize sm:text-lg">
               <h2 className="text-3xl sm:text-4xl font-bold pb-4">Rates</h2>
               <ul className="list-none">
@@ -282,7 +282,7 @@ function App() {
           {/* Contact Section */}
           <section
             id="contact"
-            className="bg-sky-50 flex justify-center items-center h-screen"
+            className="bg-sky-50 flex justify-center items-center md:h-full"
           >
             <div className="container mx-auto capitalize text-center font-bold sm:text-lg">
               {/* Show image only on md and above viewport */}
