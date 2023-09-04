@@ -106,14 +106,14 @@ function App() {
 
       {/* Sidebar (Visible on md and larger screens) */}
       <nav
-        className={`hidden md:block fixed top-0 h-full py-4 px-4 bg-gradient-to-b from-sky-800 to-sky-600`}
+        className={`hidden md:block fixed top-0 h-full p-4 lg:p-6 bg-gradient-to-b from-sky-800 to-sky-600`}
       >
         <div className="text-white text-center h-full flex flex-col justify-center">
           {SIDEBAR_ITEMS.map((item) => (
             <a
               key={item.id}
               href={`#${item.id}`}
-              className="block py-2 hover:text-sky-400 md:text-lg lg:text-xl"
+              className="block py-2 lg:py-6 hover:text-sky-400 md:text-lg lg:text-xl"
               onClick={() => handleSidebarItemClick(item.id)}
             >
               {item.text}
@@ -124,40 +124,43 @@ function App() {
 
       {/* Centered Content */}
       <main className="w-full bg-sky-100 text-sky-950" id="home">
-        <div className="md:grid md:grid-cols-1 md:grid-rows-6 md:grid-flow-col md:gap-4 md:pl-36">
+        <div className="md:grid md:grid-cols-1 md:grid-rows-6 md:grid-flow-col md:gap-4 md:pl-36 lg:pl-44">
           {/* Main content goes here */}
           <section className="text-center sm:mt-4 md:mt-0 lg:min-h-screen lg:min-w-screen md:h-full flex flex-col justify-center items-center">
             <img
               src={PORTRAIT}
               alt="PORTRAIT"
-              className="rounded-full w-56 h-56 sm:w-60 sm:h-60 md:w-64 md:h-64 object-cover mx-auto mt-16 md:mt-0"
+              className="rounded-full w-56 h-56 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover mx-auto mt-16 md:mt-0"
             />
-            <h1 className="text-5xl sm:text-6xl font-bold pt-4 md:text-7xl">
+            <h1 className="text-5xl sm:text-6xl font-bold pt-4 md:text-7xl lg:text-8xl">
               {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
             </h1>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold capitalize pt-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold capitalize pt-4 lg:pt-8">
               Private <span className="text-sky-400">Math</span> Tutor{" "}
               <span className="text-sky-400">&amp;</span>
             </h2>
-            <h3 className="font-bold capitalize text-center pt-2 sm:pt-4 text-lg sm:text-xl md:text-2xl">
+            <h3 className="font-bold capitalize text-center pt-2 sm:pt-4 lg:pt-6 text-lg sm:text-xl md:text-2xl lg:text-3xl">
               True Hope <span className="text-sky-400">4</span> Success Tutoring
             </h3>
             {/* Learn More Button */}
             <button
               onClick={scrollToAbout}
-              className="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-1000 ease-in-out inline-block my-8 sm:text-lg md:text-xl"
+              className="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 lg:py-4 lg:px-8 rounded-full shadow-md transition duration-1000 ease-in-out inline-block my-8 lg:my-12 sm:text-lg md:text-xl lg:text-2xl"
             >
               Learn More
             </button>
           </section>
 
           {/* About Section */}
-          <section id="about" className="bg-sky-50 py-16 md:h-full">
+          <section
+            id="about"
+            className="bg-sky-50 py-16 lg:py-32 md:min-h-screen lg:px-4"
+          >
             <div className="mx-auto">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center pb-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center pb-4">
                 About Me
               </h2>
-              <p className="m-4 text-left sm:text-lg md:text-lg">
+              <p className="m-4 text-left sm:text-lg md:text-lg lg:text-xl">
                 Hello, I'm{" "}
                 <span className="font-bold">
                   {NAME_FIRST + " " + NAME_LAST}
@@ -185,9 +188,9 @@ function App() {
               <img
                 src={ABOUT_IMG}
                 alt="ABOUT_IMG"
-                className="rounded-3xl border-2	border-sky-600 w-96 h-96 object-cover mx-auto mb-4 md:block hidden"
+                className="rounded-3xl border-2	border-sky-600 w-96 h-96 object-cover mx-auto mb-4 md:my-8 lg:my-12 md:block hidden"
               />
-              <p className="m-4 text-left sm:text-lg md:text-lg">
+              <p className="m-4 text-left sm:text-lg md:text-lg lg:text-xl">
                 With my extensive background, I specialize in various subjects
                 including{" "}
                 <span className="font-bold">
@@ -207,21 +210,24 @@ function App() {
           </section>
 
           {/* Qualifications Section */}
-          <section id="qualifications" className="bg-sky-100 py-16 md:h-full">
+          <section
+            id="qualifications"
+            className="bg-sky-100 py-16 lg:py-32 md:h-full lg:px-4"
+          >
             <div className="container mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-bold pb-4 md:pb-8 text-center md:text-5xl">
+              <h2 className="text-3xl sm:text-4xl font-bold pb-4 md:pb-8 lg:pb-12 text-center md:text-5xl lg:text-6xl">
                 Qualifications
               </h2>
               {/* Show image only on md and above viewport */}
               <img
                 src={QUALIFICATIONS_IMG}
                 alt="QUALIFICATIONS_IMG"
-                className="rounded-2xl border-2	border-sky-600 w-96 h-96 object-cover mx-auto mb-4 md:mb-12 md:block hidden"
+                className="rounded-2xl border-2	border-sky-600 w-96 h-96 object-cover mx-auto mb-4 md:mb-12 lg:mb-16 md:block hidden"
               />
               <ul className="list-none">
                 {QUALIFICATIONS_TEXT.map((item, index) => (
-                  <li key={index} className="m-4">
-                    <span className="font-bold sm:text-lg md:text-xl">
+                  <li key={index} className="m-4 lg:m-6">
+                    <span className="font-bold sm:text-lg md:text-xl lg:text-2xl">
                       {item.text}
                     </span>
                   </li>
@@ -237,13 +243,13 @@ function App() {
           >
             <div className="container mx-auto text-center">
               <div className="flex flex-col items-center">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold pb-4">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold pb-4">
                   Availability
                 </h2>
-                <h3 className="text-lg sm:text-xl md:text-2xl mt-4 mb-8">
+                <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl mt-4 mb-8">
                   I am available at the following locations:
                 </h3>
-                <ul className="font-bold list-none text-sm sm:text-base md:text-lg">
+                <ul className="font-bold list-none text-sm sm:text-base md:text-lg lg:text-xl">
                   <li className="m-4 cursor-pointer hover:text-sky-400">
                     <a href="https://www.google.com/maps/place/2100+Garden+Rd+c312,+Monterey,+CA+93940">
                       2100 Garden Rd c312, Monterey, CA 93940
@@ -256,7 +262,7 @@ function App() {
                 <img
                   src={AVAILABILITY_IMG}
                   alt="AVAILABILITY_IMG"
-                  className="rounded-xl border-2 border-sky-600 w-96 h-96 object-cover mx-auto mb-4 md:mb-12 md:block hidden cursor-pointer"
+                  className="rounded-xl border-2 border-sky-600 w-96 h-96 object-cover mx-auto mb-4 md:mb-12 md:block hidden cursor-pointer lg:my-16"
                 />
               </div>
             </div>
@@ -282,18 +288,20 @@ function App() {
           {/* Contact Section */}
           <section
             id="contact"
-            className="bg-sky-50 flex justify-center items-center md:h-full"
+            className="bg-sky-50 flex justify-center items-center md:min-h-screen"
           >
-            <div className="container mx-auto capitalize text-center font-bold sm:text-lg">
+            <div className="container mx-auto capitalize text-center font-bold sm:text-lg md:text-xl lg:text-2xl">
               {/* Show image only on md and above viewport */}
               <img
                 src={CONTACT}
                 alt="CONTACT"
                 className="rounded-3xl border-2	border-sky-600 w-96 h-96 object-cover mx-auto mb-4 md:mb-12 md:block hidden"
               />
-              <h2 className="text-3xl sm:text-4xl pb-4">Contact</h2>
-              <h3 className="m-4">True Hope 4 Success Tutoring</h3>
-              <h3 className="m-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl pb-4">
+                Contact
+              </h2>
+              <h3 className="m-4 lg:m-6">True Hope 4 Success Tutoring</h3>
+              <h3 className="m-4 lg:m-6">
                 <a
                   className="cursor-pointer hover:text-sky-800"
                   href="tel:5599301934"
@@ -301,7 +309,7 @@ function App() {
                   Phone: (559) 930-1934
                 </a>
               </h3>
-              <h3 className="m-4">
+              <h3 className="m-4 lg:m-6">
                 <a
                   className="cursor-pointer hover:text-sky-800"
                   href={`mailto:${EMAIL_ADDRESS}`}
