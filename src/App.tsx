@@ -79,13 +79,25 @@ function App() {
             <li className="mb-2" key={item.id}>
               <a
                 href={`#${item.id}`}
-                className="block py-2 hover:text-sky-400 sm:text-lg"
+                className="block py-2 text-xs hover:text-sky-400 sm:text-base"
                 onClick={() => handleSidebarItemClick(item.id)}
               >
                 {item.text}
               </a>
             </li>
           ))}
+          <div className="text-xs text-center sm:text-sm">
+            <a
+              href="https://github.com/milliorn/true-hope-tutoring"
+              className="text-sky-50 hover:text-sky-900"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="">
+                &copy; {new Date().getFullYear()} Source Code
+              </span>
+            </a>
+          </div>
         </ul>
       </nav>
 
@@ -104,17 +116,17 @@ function App() {
             </a>
           ))}
         </div>
-        <div className="text-center">
-          <p>
-            <a
-              href="https://github.com/milliorn/true-hope-tutoring"
-              className="text-sky-50 hover:text-sky-900"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <p>&copy; {new Date().getFullYear()} Source Code</p>
-            </a>
-          </p>
+        <div className="relative">
+          <a
+            href="https://github.com/milliorn/true-hope-tutoring"
+            className="text-sky-50 hover:text-sky-900"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <p className="absolute inset-x-0 top-0 text-xs leading-[0] text-center">
+              &copy; {new Date().getFullYear()} Source Code
+            </p>
+          </a>
         </div>
       </nav>
 
