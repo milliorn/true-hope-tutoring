@@ -134,28 +134,33 @@ function App() {
 
       <main className="w-full bg-sky-100 text-sky-950" id="home">
         <div className="md:grid md:grid-cols-1 md:grid-rows-6 md:grid-flow-col md:gap-4 md:pl-36 lg:pl-44 xl:pl-52 2xl:pl-60">
-          <section className="flex flex-col items-center justify-center min-h-screen text-center sm:mt-4 md:mt-0 lg:min-w-screen md:h-full">
+          <section className="flex flex-col items-center justify-center min-h-screen text-center sm:mt-4 md:-mt-48 lg:-mt-64 xl:-mt-96 lg:min-w-screen md:h-full">
             <img
               src={PORTRAIT}
               alt="PORTRAIT"
-              className="object-cover w-56 h-56 mx-auto mt-16 rounded-full sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 2xl:w-96 2xl:h-96 xl:h-80 md:mt-0"
+              className="object-cover w-56 h-56 mx-auto mt-16 rounded-full md:mt-0 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 2xl:w-96 2xl:h-96 xl:h-80"
             />
-            <h1 className="pt-4 text-5xl font-bold sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl">
-              {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
-            </h1>
-            <h2 className="pt-4 text-2xl font-bold capitalize sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl lg:pt-8 xl:pt-12">
-              Private <span className="text-sky-400">Math</span> Tutor{" "}
-              <span className="text-sky-400">&amp;</span>
-            </h2>
-            <h3 className="pt-2 text-lg font-bold text-center capitalize sm:pt-4 lg:pt-6 xl:pt-8 2xl:pt-10 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
-              True Hope <span className="text-sky-400">4</span> Success Tutoring
-            </h3>
-            <button
-              onClick={scrollToAbout}
-              className="inline-block px-4 py-2 my-8 font-semibold text-white transition duration-1000 ease-in-out rounded-full shadow-md bg-sky-500 hover:bg-sky-600 lg:py-4 lg:px-8 xl:py-6 2xl:py-8 2xl:px-12 xl:px-10 lg:my-12 xl:my-16 2xl:my-20 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
-            >
-              Learn More
-            </button>
+            <div className="mt-8 md:mt-0">
+              {" "}
+              {/* Removed md:-mt-16 */}
+              <h1 className="pt-4 text-5xl font-bold sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl">
+                {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
+              </h1>
+              <h2 className="pt-4 text-2xl font-bold capitalize sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl lg:pt-8 xl:pt-12">
+                Private <span className="text-sky-400">Math</span> Tutor{" "}
+                <span className="text-sky-400">&amp;</span>
+              </h2>
+              <h3 className="pt-2 text-lg font-bold text-center capitalize sm:pt-4 lg:pt-6 xl:pt-8 2xl:pt-10 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
+                True Hope <span className="text-sky-400">4</span> Success
+                Tutoring
+              </h3>
+              <button
+                onClick={scrollToAbout}
+                className="inline-block px-4 py-2 mt-8 font-semibold text-white transition duration-1000 ease-in-out rounded-full shadow-md bg-sky-500 hover:bg-sky-600 lg:py-4 lg:px-8 xl:py-6 2xl:py-8 2xl:px-12 xl:px-10 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+              >
+                Learn More
+              </button>
+            </div>
           </section>
 
           <section
