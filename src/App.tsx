@@ -265,7 +265,7 @@ function App() {
                 <img
                   src={AVAILABILITY_IMG}
                   alt="AVAILABILITY_IMG"
-                  className="block object-cover w-56 h-56 mx-auto mb-4 border-2 cursor-pointer rounded-xl border-sky-600 md:w-64 md:h-64 lg:w-96 lg:h-96 md:mb-12 lg:my-16"
+                  className="block object-cover w-56 h-56 mx-auto mb-4 border-2 cursor-pointer rounded-xl border-sky-600 md:w-64 md:h-64 lg:w-96 lg:h-96 xl:w-3/6 xl:h-3/6 2xl:w-3/6 md:mb-12 lg:my-16"
                 />
               </div>
             </div>
@@ -288,7 +288,10 @@ function App() {
                     <ul className="pl-6 list-none">
                       {Array.isArray(category.fees) ? (
                         category.fees.map((fee, subIndex) => (
-                          <li key={subIndex} className="py-1">
+                          <li
+                            key={subIndex}
+                            className="py-1 sm:py-px md:py-2 lg:py-3 xl:py-4 2xl:py-5 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+                          >
                             {fee}
                           </li>
                         ))
@@ -305,7 +308,10 @@ function App() {
                 </span>
                 <ul className="pt-2 pl-6 list-none">
                   {ADDITIONAL_FEES.map((fee, index) => (
-                    <li key={index} className="py-1">
+                    <li
+                      key={index}
+                      className="py-1 sm:py-px md:py-2 lg:py-3 xl:py-4 2xl:py-5 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+                    >
                       {fee}
                     </li>
                   ))}
