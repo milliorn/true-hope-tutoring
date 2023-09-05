@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   ABOUT_IMG,
+  ADDITIONAL_FEES,
   AVAILABILITY_IMG,
   CONTACT,
   EMAIL_ADDRESS,
@@ -11,6 +12,7 @@ import {
   QUALIFICATIONS_IMG,
   QUALIFICATIONS_TEXT,
   SIDEBAR_ITEMS,
+  TUTORING_FEES,
 } from "./data";
 
 function App() {
@@ -269,19 +271,46 @@ function App() {
             </div>
           </section>
 
-          <section id="rates" className="py-16 bg-sky-100 md:h-full">
-            <div className="container mx-auto text-center capitalize sm:text-lg">
-              <h2 className="pb-4 text-3xl font-bold sm:text-4xl">Rates</h2>
+          <section
+            id="rates"
+            className="min-h-screen py-24 bg-sky-100 lg:py-32 xl:py-40 2xl:py-16 lg:px-4 xl:px-8"
+          >
+            <div className="container mx-auto">
+              <h2 className="pb-4 text-3xl font-bold text-center sm:text-4xl md:pb-8 lg:pb-12 xl:pb-16 2xl:pb-20 md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
+                Tutoring Fees
+              </h2>
               <ul className="list-none">
-                <li className="m-4">
-                  <span className="font-bold">
-                    Call or email for pricing information
-                  </span>
-                </li>
-                <li className="m-4">
-                  <span className="font-bold">Group rates available</span>
-                </li>
+                {TUTORING_FEES.map((category, index) => (
+                  <li key={index} className="m-4 lg:m-6 xl:m-8 2xl:m-10">
+                    <span className="font-bold sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
+                      {category.category}
+                    </span>
+                    <ul className="pl-6 list-none">
+                      {Array.isArray(category.fees) ? (
+                        category.fees.map((fee, subIndex) => (
+                          <li key={subIndex} className="py-1">
+                            {fee}
+                          </li>
+                        ))
+                      ) : (
+                        <li className="py-1">{category.fees}</li>
+                      )}
+                    </ul>
+                  </li>
+                ))}
               </ul>
+              <li className="m-4 list-none lg:m-6 xl:m-8 2xl:m-10">
+                <span className="font-bold sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
+                  Additional Fees:
+                </span>
+                <ul className="pt-2 pl-6 list-none">
+                  {ADDITIONAL_FEES.map((fee, index) => (
+                    <li key={index} className="py-1">
+                      {fee}
+                    </li>
+                  ))}
+                </ul>
+              </li>
             </div>
           </section>
 
