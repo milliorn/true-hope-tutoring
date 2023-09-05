@@ -246,7 +246,7 @@ function App() {
 
           <section
             id="availability"
-            className="flex flex-col items-center justify-center min-h-screen py-16 bg-sky-50 lg:py-32 2xl:py-0 xl:py-40"
+            className="flex flex-col items-center justify-center min-h-screen py-16 md:h-min bg-sky-50 lg:py-32 2xl:py-0 xl:py-40"
           >
             <div className="container mx-auto text-center">
               <div className="flex flex-col items-center">
@@ -330,14 +330,14 @@ function App() {
             className="flex items-center justify-center min-h-screen py-16 bg-sky-50 lg:py-32 xl:py-40 2xl:py-0"
           >
             <div className="container mx-auto font-bold text-center capitalize sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
+              <h2 className="pb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl md:pb-8 lg:pb-12 xl:pb-16 2xl:pb-20">
+                Contact
+              </h2>
               <img
                 src={CONTACT}
                 alt="CONTACT"
                 className="block object-cover w-56 h-56 mx-auto mb-4 border-2 rounded-3xl border-sky-600 md:w-64 md:h-64 lg:w-96 lg:h-96 md:mb-12 lg:mb-16 xl:mb-20 2xl:mb-24 2xl:w-max 2xl:h-max"
               />
-              <h2 className="pb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl md:pb-8 lg:pb-12 xl:pb-16 2xl:pb-20">
-                Contact
-              </h2>
               <h3 className="m-4 lg:m-6 xl:m-8 2xl:m-10">
                 True Hope 4 Success Tutoring
               </h3>
