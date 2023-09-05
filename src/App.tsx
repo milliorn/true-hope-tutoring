@@ -1,21 +1,23 @@
 import { useState } from "react";
 import {
-  NAVBAR_TITLE,
-  SIDEBAR_ITEMS,
-  PORTRAIT,
+  ABOUT_IMG,
+  ADDITIONAL_FEES,
+  AVAILABILITY_IMG,
+  CONTACT,
+  EMAIL_ADDRESS,
   NAME_FIRST,
   NAME_LAST,
-  QUALIFICATIONS_TEXT,
-  ABOUT_IMG,
+  NAVBAR_TITLE,
+  PORTRAIT,
   QUALIFICATIONS_IMG,
-  AVAILABILITY_IMG,
+  QUALIFICATIONS_TEXT,
+  SIDEBAR_ITEMS,
+  TUTORING_FEES,
 } from "./data";
 
 function App() {
-  // Define a state to track whether the sidebar (navbar) is open or closed
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Function to toggle the sidebar (navbar)
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -28,41 +30,30 @@ function App() {
     }, 200);
   };
 
-  // Function to handle clicking on a sidebar item
   const handleSidebarItemClick = (id: string) => {
-    // Scroll to the corresponding section
     const element = document.querySelector(`#${id}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
-
-    // Close the sidebar
     setIsSidebarOpen(false);
   };
 
   return (
-    <div className="scroll-behavior-smooth mx-auto">
-      {/* Top Navbar (Visible on Mobile) */}
+    <div className="mx-auto scroll-behavior-smooth 2xl:container">
       <nav
-        className={`md:hidden fixed top-0 w-full ${
-          isSidebarOpen
-            ? "bg-gradient-to-b from-sky-800 to-sky-600"
-            : "bg-gradient-to-b from-sky-800 to-sky-600"
-        }`}
+        className={`md:hidden fixed top-0 w-full bg-gradient-to-b from-sky-800 to-sky-600`}
       >
-        {/* Hamburger Button */}
-        <div className="flex justify-between items-center py-2 px-4">
-          <div className="text-sky-50 text-2xl sm:text-3xl">{NAVBAR_TITLE}</div>
+        <div className="flex items-center justify-between px-4 py-2">
+          <div className="text-2xl text-sky-50 sm:text-3xl">{NAVBAR_TITLE}</div>
           <button
             onClick={toggleSidebar}
-            className="text-sky-200 hover:text-sky-100 focus:outline-none focus:text-sky-100 border rounded border-sky-200"
+            className="border rounded text-sky-200 hover:text-sky-100 focus:outline-none focus:text-sky-100 border-sky-200"
           >
             <svg
-              className="h-8 w-8 fill-current"
+              className="w-8 h-8 fill-current"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >
-              {/* Hamburger or X Icon */}
               {isSidebarOpen ? (
                 <path
                   fillRule="evenodd"
@@ -79,8 +70,6 @@ function App() {
             </svg>
           </button>
         </div>
-        {/* Dropdown Navigation */}
-        {/* Render the sidebar items */}
         <ul
           className={`${
             isSidebarOpen
@@ -92,70 +81,97 @@ function App() {
             <li className="mb-2" key={item.id}>
               <a
                 href={`#${item.id}`}
-                className="block py-2 hover:text-sky-400 sm:text-lg"
+                className="block py-2 text-xs hover:text-sky-400 sm:text-base"
                 onClick={() => handleSidebarItemClick(item.id)}
               >
                 {item.text}
               </a>
             </li>
           ))}
+          <div className="text-xs text-center sm:text-sm">
+            <a
+              href="https://github.com/milliorn/true-hope-tutoring"
+              className="text-sky-50 hover:text-sky-900"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="">
+                &copy; {new Date().getFullYear()} Source Code
+              </span>
+            </a>
+          </div>
         </ul>
       </nav>
 
-      {/* Sidebar (Visible on md and larger screens) */}
       <nav
-        className={`hidden md:block fixed top-0 h-full py-4 px-4 bg-gradient-to-b from-sky-800 to-sky-600`}
+        className={`hidden md:block fixed top-0 h-full p-4 lg:p-6 xl:p-8 2xl:p-10 bg-gradient-to-b from-sky-800 to-sky-600`}
       >
-        <div className="text-white text-center h-full flex flex-col justify-center">
+        <div className="flex flex-col justify-center h-full text-center text-white">
           {SIDEBAR_ITEMS.map((item) => (
             <a
               key={item.id}
               href={`#${item.id}`}
-              className="block py-2 hover:text-sky-400 sm:text-lg"
+              className="block py-2 lg:py-6 xl:py-8 2xl:py-10 hover:text-sky-400 md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl"
               onClick={() => handleSidebarItemClick(item.id)}
             >
               {item.text}
             </a>
           ))}
         </div>
+        <div className="relative">
+          <a
+            href="https://github.com/milliorn/true-hope-tutoring"
+            className="text-sky-50 hover:text-sky-900"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <p className="absolute inset-x-0 top-0 text-xs leading-[0] text-center">
+              &copy; {new Date().getFullYear()} Source Code
+            </p>
+          </a>
+        </div>
       </nav>
 
-      {/* Centered Content */}
       <main className="w-full bg-sky-100 text-sky-950" id="home">
-        <div className="md:grid md:grid-cols-1 md:grid-rows-6 md:grid-flow-col md:gap-4 md:pl-36">
-          {/* Main content goes here */}
-          <div className="text-center md:col-span-1 sm:mt-4 md:mt-28 md:h-screen flex flex-col justify-center items-center">
+        <div className="md:grid md:grid-cols-1 md:grid-rows-6 md:grid-flow-col md:gap-4 md:pl-36 lg:pl-44 xl:pl-52 2xl:pl-60">
+          <section className="flex flex-col items-center justify-center min-h-screen text-center sm:mt-4 md:-mt-48 lg:-mt-64 xl:-mt-96 lg:min-w-screen md:h-full">
             <img
               src={PORTRAIT}
               alt="PORTRAIT"
-              className="rounded-full w-56 h-56 sm:w-60 sm:h-60 md:w-64 md:h-64 object-cover mx-auto mt-16 md:mt-0"
+              className="object-cover w-56 h-56 mx-auto mt-16 rounded-full md:mt-0 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 2xl:w-96 2xl:h-96 xl:h-80"
             />
-            <h1 className="text-5xl sm:text-6xl font-bold pt-4 md:text-7xl">
-              {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
-            </h1>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold capitalize pt-4">
-              Private <span className="text-sky-400">Math</span> Tutor{" "}
-              <span className="text-sky-400">&amp;</span>
-            </h2>
-            <h3 className="font-bold capitalize text-center pt-2 sm:pt-4 text-lg sm:text-xl md:text-2xl">
-              True Hope <span className="text-sky-400">4</span> Success Tutoring
-            </h3>
-            {/* Learn More Button */}
-            <button
-              onClick={scrollToAbout}
-              className="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-1000 ease-in-out inline-block my-8 sm:text-lg md:text-xl"
-            >
-              Learn More
-            </button>
-          </div>
+            <div className="mt-8 md:mt-0">
+              {" "}
+              {/* Removed md:-mt-16 */}
+              <h1 className="pt-4 text-5xl font-bold sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl">
+                {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
+              </h1>
+              <h2 className="pt-4 text-2xl font-bold capitalize sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl lg:pt-8 xl:pt-12">
+                Private <span className="text-sky-400">Math</span> Tutor{" "}
+                <span className="text-sky-400">&amp;</span>
+              </h2>
+              <h3 className="pt-2 text-lg font-bold text-center capitalize sm:pt-4 lg:pt-6 xl:pt-8 2xl:pt-10 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
+                True Hope <span className="text-sky-400">4</span> Success
+                Tutoring
+              </h3>
+              <button
+                onClick={scrollToAbout}
+                className="inline-block px-4 py-2 mt-8 font-semibold text-white transition duration-1000 ease-in-out rounded-full shadow-md bg-sky-500 hover:bg-sky-600 lg:py-4 lg:px-8 xl:py-6 2xl:py-8 2xl:px-12 xl:px-10 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+              >
+                Learn More
+              </button>
+            </div>
+          </section>
 
-          {/* About Section */}
-          <section id="about" className="bg-sky-50 py-16">
+          <section
+            id="about"
+            className="min-h-screen py-24 bg-sky-50 lg:py-32 xl:py-40 lg:px-4 xl:px-8"
+          >
             <div className="mx-auto">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center pb-4">
+              <h2 className="pb-4 text-3xl font-bold text-center sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl xl:pb-8 2xl:pb-12">
                 About Me
               </h2>
-              <p className="m-4 text-left sm:text-lg md:text-lg">
+              <p className="m-4 text-left 2xl:m-8 sm:text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">
                 Hello, I'm{" "}
                 <span className="font-bold">
                   {NAME_FIRST + " " + NAME_LAST}
@@ -179,13 +195,12 @@ function App() {
                 <span className="font-bold capitalize">honor graduate</span>{" "}
                 status at both Fresno State University and Fresno City College.
               </p>
-              {/* Show image only on md and above viewport */}
               <img
                 src={ABOUT_IMG}
                 alt="ABOUT_IMG"
-                className="rounded-3xl border-2	border-sky-600 w-96 h-96 object-cover mx-auto mb-4 md:block hidden"
+                className="block object-cover w-56 h-56 mx-auto mb-4 border-2 rounded-3xl border-sky-600 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-96 lg:h-96 md:my-8 lg:my-12 xl:my-16 2xl:my-20 2xl:w-11/12 2xl:h-11/12"
               />
-              <p className="m-4 text-left sm:text-lg md:text-lg">
+              <p className="m-4 text-left sm:text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 2xl:m-8">
                 With my extensive background, I specialize in various subjects
                 including{" "}
                 <span className="font-bold">
@@ -204,22 +219,23 @@ function App() {
             </div>
           </section>
 
-          {/* Qualifications Section */}
-          <section id="qualifications" className="bg-sky-100 py-16">
+          <section
+            id="qualifications"
+            className="min-h-screen py-24 bg-sky-100 lg:py-32 xl:py-40 2xl:py-16 lg:px-4 xl:px-8"
+          >
             <div className="container mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-bold pb-4 md:pb-8 text-center md:text-5xl">
+              <h2 className="pb-4 text-3xl font-bold text-center sm:text-4xl md:pb-8 lg:pb-12 xl:pb-16 2xl:pb-20 md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
                 Qualifications
               </h2>
-              {/* Show image only on md and above viewport */}
               <img
                 src={QUALIFICATIONS_IMG}
                 alt="QUALIFICATIONS_IMG"
-                className="rounded-2xl border-2	border-sky-600 w-96 h-96 object-cover mx-auto mb-4 md:mb-12 md:block hidden"
+                className="block object-cover w-56 h-56 mx-auto mb-4 border-2 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-96 lg:h-96 rounded-2xl border-sky-600 md:mb-12 lg:mb-16 xl:mb-20 2xl:mb-24 2xl:w-max 2xl:h-max"
               />
               <ul className="list-none">
                 {QUALIFICATIONS_TEXT.map((item, index) => (
-                  <li key={index} className="m-4">
-                    <span className="font-bold sm:text-lg md:text-xl">
+                  <li key={index} className="m-4 lg:m-6 xl:m-8 2xl:m-10">
+                    <span className="font-bold sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
                       {item.text}
                     </span>
                   </li>
@@ -228,70 +244,118 @@ function App() {
             </div>
           </section>
 
-          {/* Availability Section */}
           <section
             id="availability"
-            className="bg-sky-50 py-16 md:py-32 h-screen flex justify-center items-center md:items-start"
+            className="flex flex-col items-center justify-center min-h-screen py-16 md:h-min bg-sky-50 lg:py-32 2xl:py-0 xl:py-40"
           >
             <div className="container mx-auto text-center">
               <div className="flex flex-col items-center">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold pb-4">
+                <h2 className="pb-4 text-3xl font-bold sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl md:pb-8 lg:pb-12 xl:pb-16 2xl:pb-20">
                   Availability
                 </h2>
-                <h3 className="text-lg sm:text-xl md:text-2xl mt-4 mb-8">
+                <h3 className="mt-4 mb-8 text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl">
                   I am available at the following locations:
                 </h3>
-                <ul className="font-bold list-none text-sm sm:text-base md:text-lg">
-                  <li className="m-4 cursor-pointer hover:text-sky-400">
+                <ul className="text-sm font-bold list-none sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">
+                  <li className="m-4 cursor-pointer lg:m-6 xl:m-8 2xl:m-10 hover:text-sky-400">
                     <a href="https://www.google.com/maps/place/2100+Garden+Rd+c312,+Monterey,+CA+93940">
                       2100 Garden Rd c312, Monterey, CA 93940
                     </a>
                   </li>
-                  <li className="m-4">Zoom</li>
-                  <li className="m-4">At your home ($25.00 travel fee)</li>
+                  <li className="m-4 lg:m-6 xl:m-8 2xl:m-10">Zoom</li>
+                  <li className="m-4 lg:m-6 xl:m-8 2xl:m-10">
+                    At your home ($25.00 travel fee)
+                  </li>
                 </ul>
-                {/* Show image only on md and above viewport */}
                 <img
                   src={AVAILABILITY_IMG}
                   alt="AVAILABILITY_IMG"
-                  className="rounded-xl border-2 border-sky-600 w-96 h-96 object-cover mx-auto mb-4 md:mb-12 md:block hidden cursor-pointer"
+                  className="block object-cover w-56 h-56 mx-auto mb-4 border-2 cursor-pointer rounded-xl border-sky-600 md:w-64 md:h-64 lg:w-96 lg:h-96 xl:w-3/6 xl:h-3/6 2xl:w-3/6 md:mb-12 lg:my-16"
                 />
               </div>
             </div>
           </section>
 
-          {/* Rates Section */}
-          <section id="rates" className="bg-sky-100 py-16">
-            <div className="container mx-auto text-center capitalize sm:text-lg">
-              <h2 className="text-3xl sm:text-4xl font-bold pb-4">Rates</h2>
+          <section
+            id="rates"
+            className="min-h-screen py-24 bg-sky-100 lg:py-32 xl:py-40 2xl:py-16 lg:px-4 xl:px-8"
+          >
+            <div className="container mx-auto">
+              <h2 className="pb-4 text-3xl font-bold text-center sm:text-4xl md:pb-8 lg:pb-12 xl:pb-16 2xl:pb-20 md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
+                Tutoring Fees
+              </h2>
               <ul className="list-none">
-                <li className="m-4">
-                  <span className="font-bold">
-                    Call or email for pricing information
-                  </span>
-                </li>
-                <li className="m-4">
-                  <span className="font-bold">Group rates available</span>
-                </li>
+                {TUTORING_FEES.map((category, index) => (
+                  <li key={index} className="m-4 lg:m-6 xl:m-8 2xl:m-10">
+                    <span className="font-bold sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
+                      {category.category}
+                    </span>
+                    <ul className="pl-6 list-none">
+                      {Array.isArray(category.fees) ? (
+                        category.fees.map((fee, subIndex) => (
+                          <li
+                            key={subIndex}
+                            className="py-1 sm:py-px md:py-2 lg:py-3 xl:py-4 2xl:py-5 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+                          >
+                            {fee}
+                          </li>
+                        ))
+                      ) : (
+                        <li className="py-1">{category.fees}</li>
+                      )}
+                    </ul>
+                  </li>
+                ))}
               </ul>
+              <li className="m-4 list-none lg:m-6 xl:m-8 2xl:m-10">
+                <span className="font-bold sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
+                  Additional Fees:
+                </span>
+                <ul className="pt-2 pl-6 list-none">
+                  {ADDITIONAL_FEES.map((fee, index) => (
+                    <li
+                      key={index}
+                      className="py-1 sm:py-px md:py-2 lg:py-3 xl:py-4 2xl:py-5 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+                    >
+                      {fee}
+                    </li>
+                  ))}
+                </ul>
+              </li>
             </div>
           </section>
 
-          {/* Contact Section */}
-          <section id="contact" className="bg-sky-50 py-16">
-            <div className="container mx-auto capitalize text-center font-bold sm:text-lg">
-              <h2 className="text-3xl sm:text-4xl pb-4">Contact</h2>
-              <h3 className=" m-4">True Hope 4 Success Tutoring</h3>
-              <h3 className="m-4">
-                <a className="cursor-pointer" href="tel:5599301934">
+          <section
+            id="contact"
+            className="flex flex-col items-center justify-center min-h-screen py-16 bg-sky-50"
+          >
+            <div className="container mx-auto font-bold text-center capitalize md:mb-96 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
+              <h2 className="pb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl md:pb-8 lg:pb-12 xl:pb-16 2xl:pb-20">
+                Contact
+              </h2>
+              <h3 className="m-4 lg:m-6 xl:m-8 2xl:m-10">
+                <a
+                  className="cursor-pointer hover:text-sky-800"
+                  href="tel:5599301934"
+                >
                   Phone: (559) 930-1934
                 </a>
               </h3>
-              <h3 className="m-4">
-                <a className="mailto" href="mailto:truehopetutoring@gmail.com">
-                  Email:{" "}
-                  <span className="lowercase">truehopetutoring@gmail.com</span>
+              <h3 className="m-4 lg:m-6 xl:m-8 2xl:m-10">
+                <a
+                  className="cursor-pointer hover:text-sky-800"
+                  href={`mailto:${EMAIL_ADDRESS}`}
+                >
+                  Email: <span className="lowercase">{EMAIL_ADDRESS}</span>
                 </a>
+              </h3>
+              <img
+                src={CONTACT}
+                alt="CONTACT"
+                className="block object-cover w-56 h-56 mx-auto mb-4 border-2 rounded-3xl border-sky-600 lg:w-96 lg:h-96 md:mb-12 lg:mb-16 xl:mb-20 2xl:mb-24 md:w-96 md:h-fit"
+              />
+              <h3 className="m-4 lg:m-6 xl:m-8 2xl:m-10">
+                True Hope 4 Success Tutoring
               </h3>
             </div>
           </section>
