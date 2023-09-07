@@ -106,7 +106,7 @@ function App() {
       <nav
         className={`hidden md:block fixed top-0 h-full p-4 lg:p-6 xl:p-8 2xl:p-10 bg-gradient-to-b from-sky-800 to-sky-600`}
       >
-        <div className="flex flex-col justify-center h-full text-center text-white">
+        <div className="flex flex-col justify-center h-full text-center text-sky-50">
           {SIDEBAR_ITEMS.map((item) => (
             <a
               key={item.id}
@@ -156,7 +156,7 @@ function App() {
               </h3>
               <button
                 onClick={scrollToAbout}
-                className="inline-block px-4 py-2 mt-8 font-semibold text-white transition duration-1000 ease-in-out rounded-full shadow-md bg-sky-500 hover:bg-sky-600 lg:py-4 lg:px-8 xl:py-6 2xl:py-8 2xl:px-12 xl:px-10 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+                className="inline-block px-4 py-2 mt-8 font-semibold transition duration-1000 ease-in-out rounded-full shadow-md text-sky-50 bg-sky-500 hover:bg-sky-600 lg:py-4 lg:px-8 xl:py-6 2xl:py-8 2xl:px-12 xl:px-10 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
               >
                 Learn More
               </button>
@@ -322,6 +322,15 @@ function App() {
                   ))}
                 </ul>
               </li>
+              <p className="pb-8 font-bold text-center capitalize cursor-pointer sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl md:pb-8 lg:pb-12 xl:pb-16 2xl:pb-20 hover:text-sky-600">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://docs.google.com/document/d/17bYBhZZgOqL9MJm0ACH-I1UU3YC4w8cn7DRAMJB5YP0/edit#heading=h.gyhdmbxflob3"
+                >
+                  click here for additional information
+                </a>
+              </p>
             </div>
           </section>
 
