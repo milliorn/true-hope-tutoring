@@ -1,8 +1,4 @@
-import {
-  ABOUT_IMG,
-  NAME_FIRST,
-  NAME_LAST
-} from "./data";
+import { ABOUT_IMG, NAME_FIRST, NAME_LAST } from "./data";
 
 export function About() {
   return (
@@ -34,7 +30,8 @@ export function About() {
         <img
           src={ABOUT_IMG}
           alt="ABOUT_IMG"
-          className="block object-cover w-56 h-56 mx-auto mb-4 border-2 rounded-3xl border-sky-600 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-96 lg:h-96 md:my-8 lg:my-12 xl:my-16 2xl:my-20 2xl:w-11/12 2xl:h-11/12" />
+          className="block object-cover w-56 h-56 mx-auto mb-4 border-2 rounded-3xl border-sky-600 sm:w-60 sm:h-60 md:h-64 lg:h-96 md:my-8 lg:my-12 xl:my-16 2xl:my-20 md:w-11/12 2xl:h-11/12"
+        />
         <p className="m-4 text-left sm:text-lg md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 2xl:m-8">
           With my extensive background, I specialize in various subjects
           including{" "}
