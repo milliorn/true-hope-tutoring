@@ -29,7 +29,7 @@ export function Contact() {
         <img
           src={CONTACT}
           alt="CONTACT"
-          className="block object-cover w-56 h-56 mx-auto mb-4 border-2 rounded-3xl border-sky-600 lg:w-96 md:mb-12 lg:mb-16 xl:mb-20 2xl:mb-24 md:w-96 md:h-fit xl:h-4/6 xl:w-fit"
+          className="block object-cover w-56 h-56 mx-auto mb-4 border-2 rounded-3xl border-sky-600 lg:w-96 md:mb-12 lg:mb-16 xl:mb-20 2xl:mb-24 md:w-96 md:h-4/6 xl:w-fit"
         />
         <h3 className="m-4 lg:m-6 xl:m-8 2xl:m-10">
           True Hope 4 Success Tutoring
