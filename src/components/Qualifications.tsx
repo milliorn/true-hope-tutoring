@@ -1,7 +1,4 @@
-import {
-  QUALIFICATIONS_IMG,
-  QUALIFICATIONS_TEXT
-} from "./data";
+import { QUALIFICATIONS_IMG, QUALIFICATIONS_TEXT } from "./data";
 
 export function Qualifications() {
   return (
@@ -16,7 +13,8 @@ export function Qualifications() {
         <img
           src={QUALIFICATIONS_IMG}
           alt="QUALIFICATIONS_IMG"
-          className="block object-cover w-56 h-56 mx-auto mb-4 border-2 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-96 lg:h-96 rounded-2xl border-sky-600 md:mb-12 lg:mb-16 xl:mb-20 2xl:mb-24 2xl:w-max 2xl:h-max" />
+          className="block object-cover w-56 h-56 mx-auto mb-4 border-2 sm:w-60 sm:h-60 rounded-2xl border-sky-600 md:mb-12 lg:mb-16 xl:mb-20 2xl:mb-24 md:w-7/12 md:h-1/6"
+        />
         <ul className="list-none">
           {QUALIFICATIONS_TEXT.map((item, index) => (
             <li key={index} className="m-4 lg:m-6 xl:m-8 2xl:m-10">
