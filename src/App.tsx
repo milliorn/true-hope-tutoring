@@ -37,7 +37,7 @@ function App() {
       {Sidebar(handleSidebarItemClick)}
       <main className="w-full bg-sky-100 text-sky-950" id="home">
         <div className="md:grid md:grid-cols-1 md:grid-rows-6 md:grid-flow-col md:gap-4 md:pl-36 lg:pl-44 xl:pl-52 2xl:pl-60">
-          {Portrait(scrollToAbout)}
+          <Portrait scrollToAbout={scrollToAbout} />
           <About />
           <Qualifications />
           <Availability />

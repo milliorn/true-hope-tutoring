@@ -1,18 +1,18 @@
-import {
-  NAME_FIRST,
-  NAME_LAST, PORTRAIT
-} from "./data";
+import { NAME_FIRST, NAME_LAST, PORTRAIT } from "./data";
 
-export function Portrait(scrollToAbout: () => void) {
+interface PortraitProps {
+  scrollToAbout: () => void;
+}
+
+export function Portrait({ scrollToAbout }: PortraitProps) {
   return (
     <section className="flex flex-col items-center justify-center min-h-screen text-center sm:mt-4 md:-mt-48 lg:-mt-64 xl:-mt-96 lg:min-w-screen md:h-full">
       <img
         src={PORTRAIT}
         alt="PORTRAIT"
-        className="object-cover w-56 h-56 mx-auto mt-16 rounded-full md:mt-0 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 2xl:w-96 2xl:h-96 xl:h-80" />
+        className="object-cover w-56 h-56 mx-auto mt-16 rounded-full md:mt-0 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 2xl:w-96 2xl:h-96 xl:h-80"
+      />
       <div className="mt-8 md:mt-0">
-        {" "}
-        {/* Removed md:-mt-16 */}
         <h1 className="pt-4 text-5xl font-bold sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl">
           {NAME_FIRST} <span className="text-sky-400">{NAME_LAST}</span>
         </h1>
