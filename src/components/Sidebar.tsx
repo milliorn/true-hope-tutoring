@@ -1,6 +1,10 @@
 import { SIDEBAR_ITEMS } from "./data";
 
-export function Sidebar(handleSidebarItemClick: (id: string) => void) {
+interface SidebarProps {
+  handleSidebarItemClick: (id: string) => void;
+}
+
+export function Sidebar({ handleSidebarItemClick }: SidebarProps) {
   return (
     <nav
       className={`hidden md:block fixed top-0 h-full p-4 lg:p-6 xl:p-8 2xl:p-10 bg-gradient-to-b from-sky-800 to-sky-600`}
