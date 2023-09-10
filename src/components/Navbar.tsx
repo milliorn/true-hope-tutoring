@@ -20,6 +20,7 @@ export function Navbar({
         <button
           onClick={toggleSidebar}
           className="border rounded text-sky-200 hover:text-sky-100 focus:outline-none focus:text-sky-100 border-sky-200"
+          aria-label="Toggle Sidebar"
         >
           <svg
             className="w-8 h-8 fill-current"
@@ -60,18 +61,20 @@ export function Navbar({
             </a>
           </li>
         ))}
-        <div className="text-xs text-center sm:text-sm">
-          <a
-            href="https://github.com/milliorn/true-hope-tutoring"
-            className="text-sky-50 hover:text-sky-900"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span className="">
-              &copy; {new Date().getFullYear()} Source Code
-            </span>
-          </a>
-        </div>
+        {isSidebarOpen && (
+          <div className="text-xs text-center sm:text-sm">
+            <a
+              href="https://github.com/milliorn/true-hope-tutoring"
+              className="text-sky-50 hover:text-sky-900"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="">
+                &copy; {new Date().getFullYear()} Source Code
+              </span>
+            </a>
+          </div>
+        )}
       </ul>
     </nav>
   );
