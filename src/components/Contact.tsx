@@ -12,7 +12,7 @@ export function Contact() {
         </h2>
         <h3 className="m-4 lg:m-6 xl:m-8 2xl:m-10">
           <a
-            className="cursor-pointer hover:text-sky-800"
+            className="cursor-pointer hover:text-sky-600"
             href="tel:5599301934"
           >
             Phone: (559) 930-1934
@@ -20,7 +20,7 @@ export function Contact() {
         </h3>
         <h3 className="m-4 lg:m-6 xl:m-8 2xl:m-10">
           <a
-            className="cursor-pointer hover:text-sky-800"
+            className="cursor-pointer hover:text-sky-600"
             href={`mailto:${EMAIL_ADDRESS}`}
           >
             Email: <span className="lowercase">{EMAIL_ADDRESS}</span>
