@@ -33,7 +33,7 @@ export function Rates() {
             </li>
           ))}
         </ul>
-        <li className="m-4 list-none lg:m-6 xl:m-8 2xl:m-10">
+        <div className="m-4 list-none lg:m-6 xl:m-8 2xl:m-10">
           <span className="font-bold sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
             Additional Fees:
           </span>
@@ -47,8 +47,8 @@ export function Rates() {
               </li>
             ))}
           </ul>
-        </li>
-        <p className="pb-8 font-bold text-center capitalize cursor-pointer sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl md:pb-8 lg:pb-12 xl:pb-16 2xl:pb-20 hover:text-sky-600">
+        </div>
+        <p className="pt-4 font-bold text-center capitalize cursor-pointer sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl hover:text-sky-600">
           <a
             target="_blank"
             rel="noopener noreferrer"
