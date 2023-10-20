@@ -1,6 +1,7 @@
 # Vite Starter
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/23792676-89f3-4293-a0b7-c85ce351b58d/deploy-status)](https://app.netlify.com/sites/truehopetutoring/deploys)
+[![CodeQL](https://github.com/milliorn/true-hope-tutoring/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/milliorn/true-hope-tutoring/actions/workflows/github-code-scanning/codeql)
 
 Vite starter template with React and Typescript. It provides a solid foundation for building web applications using modern technologies. This template includes support for environment variables, allowing easy configuration of your project. It also leverages Sass for styling, making it convenient to create visually appealing designs. 
 
