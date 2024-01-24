@@ -1,9 +1,10 @@
 # True Hope 4 Success Tutoring
 
-Welcome to True Hope 4 Success Tutoring, the premier destination for comprehensive math tutoring services. Headed by Hope True, a dedicated and experienced private math tutor, we specialize in empowering students through personalized, effective learning strategies in mathematics.
-
 [![Netlify Status](https://api.netlify.com/api/v1/badges/23792676-89f3-4293-a0b7-c85ce351b58d/deploy-status)](https://app.netlify.com/sites/truehopetutoring/deploys)
 [![CodeQL](https://github.com/milliorn/true-hope-tutoring/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/milliorn/true-hope-tutoring/actions/workflows/github-code-scanning/codeql)
+
+Welcome to True Hope 4 Success Tutoring, the premier destination for comprehensive math tutoring services. Headed by Hope True, a dedicated and experienced private math tutor, we specialize in empowering students through personalized, effective learning strategies in mathematics.
+
 
 ## About Hope True
 
