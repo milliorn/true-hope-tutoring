@@ -20,7 +20,7 @@ function App() {
     setTimeout(() => {
       el?.scrollIntoView({ behavior: "smooth" });
       setIsSidebarOpen(false);
-    }, 200);
+    }, 20);
   };
 
   const handleSidebarItemClick = (id: string) => {
