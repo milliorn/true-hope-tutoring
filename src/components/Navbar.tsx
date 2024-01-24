@@ -47,8 +47,8 @@ export function Navbar({
       <ul
         className={`${
           isSidebarOpen
-            ? "max-h-screen opacity-100 transition-all duration-1000 ease-in-out"
-            : "max-h-0 opacity-0 transition-all duration-1000 ease-in-out"
+            ? "max-h-screen opacity-100 transition-all duration-300 ease-in-out"
+            : "max-h-0 opacity-0 transition-all duration-300 ease-in-out"
         } overflow-hidden text-sky-50 ml-4`}
       >
         {SIDEBAR_ITEMS.map((item) => (
