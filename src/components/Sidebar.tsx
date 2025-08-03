@@ -7,7 +7,7 @@ interface SidebarProps {
 export function Sidebar({ handleSidebarItemClick }: SidebarProps) {
   return (
     <nav
-      className={`hidden md:block fixed top-0 h-full p-4 lg:p-6 xl:p-8 2xl:p-10 bg-gradient-to-b from-sky-800 to-sky-600`}
+      className={`hidden md:block fixed top-0 h-full p-4 lg:p-6 xl:p-8 2xl:p-10 bg-linear-to-b from-sky-800 to-sky-600`}
     >
       <div className="flex flex-col justify-center h-full text-center text-sky-50">
         {SIDEBAR_ITEMS.map((item) => (

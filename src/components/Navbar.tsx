@@ -13,13 +13,13 @@ export function Navbar({
 }: NavbarProps) {
   return (
     <nav
-      className={`md:hidden fixed top-0 w-full bg-gradient-to-b from-sky-800 to-sky-600`}
+      className={`md:hidden fixed top-0 w-full bg-linear-to-b from-sky-800 to-sky-600`}
     >
       <div className="flex items-center justify-between px-4 py-2">
         <div className="text-2xl text-sky-50 sm:text-3xl">{NAVBAR_TITLE}</div>
         <button
           onClick={toggleSidebar}
-          className="border rounded text-sky-200 hover:text-sky-100 focus:outline-none focus:text-sky-100 border-sky-200"
+          className="border rounded-sm text-sky-200 hover:text-sky-100 focus:outline-hidden focus:text-sky-100 border-sky-200"
           aria-label="Toggle Sidebar"
         >
           <svg
