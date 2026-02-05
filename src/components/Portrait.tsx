@@ -6,7 +6,7 @@ interface PortraitProps {
 
 export function Portrait({ scrollToAbout }: PortraitProps) {
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen text-center sm:mt-4 md:-mt-48 lg:-mt-64 xl:-mt-96 lg:min-w-screen md:h-full">
+    <section className="flex flex-col items-center justify-center w-full min-h-screen text-center sm:mt-4 md:-mt-48 lg:-mt-64 xl:-mt-96 md:h-full">
       <img
         src={PORTRAIT}
         alt="PORTRAIT"
