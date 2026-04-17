@@ -1,0 +1,49 @@
+components:
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/components/**
+          - src/App.tsx
+          - src/main.tsx
+
+styles:
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/**/*.css
+
+assets:
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/assets/**
+          - public/**
+
+configuration:
+  - changed-files:
+      - any-glob-to-any-file:
+          - vite.config.ts
+          - tsconfig.json
+          - tsconfig.node.json
+          - tsconfig*.json
+          - postcss.config.js
+          - package.json
+          - package-lock.json
+          - index.html
+          - .gitignore
+          - src/vite-env.d.ts
+
+github_actions:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/**
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - package.json
+          - package-lock.json
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '*.md'
+          - '*.MD'
+          - README*
