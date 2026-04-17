@@ -28,7 +28,8 @@ export function Availability() {
           <img
             src={AVAILABILITY_IMG}
             alt="AVAILABILITY_IMG"
-            className="block object-cover w-56 h-56 mx-auto mb-4 border-2 cursor-pointer rounded-xl border-sky-600 md:w-64 md:h-64 lg:w-96 lg:h-96 xl:w-3/6 xl:h-3/6 2xl:w-3/6 md:mb-12 lg:my-16" />
+            className="block object-cover w-56 h-56 mx-auto mb-4 border-2 cursor-pointer rounded-xl border-sky-600 md:w-64 md:h-64 lg:w-96 lg:h-96 xl:w-3/6 xl:h-3/6 2xl:w-3/6 md:mb-12 lg:my-16"
+          />
         </div>
       </div>
     </section>
