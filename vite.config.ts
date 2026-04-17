@@ -11,8 +11,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// @ts-expect-error: force load until Tailwind fixes .d.mts exports for TS
-const tailwindcss = (await import("@tailwindcss/vite")).default;
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
