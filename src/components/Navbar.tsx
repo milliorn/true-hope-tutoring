@@ -43,7 +43,7 @@ export function Navbar({
           </svg>
         </button>
       </div>
-      
+
       <ul
         className={`${
           isSidebarOpen
