@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.2 (2026-04-17)
+
+
+### Bug Fixes
+
+* **layout:** remove lg:min-w-screen to prevent horizontal overflow ([#170](https://github.com/milliorn/true-hope-tutoring/issues/170)) ([f111cc1](https://github.com/milliorn/true-hope-tutoring/commit/f111cc181156038fe20c62ed1b94e5ba2fca676e))
+
 ### 0.0.1 (2026-04-17)
 
 ### Features
