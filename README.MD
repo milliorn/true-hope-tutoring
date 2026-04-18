@@ -69,12 +69,3 @@ For inquiries or to schedule a session, please contact me:
 - Phone: (559) 930-1934
 - Email: [truehopetutoring@gmail.com](mailto:truehopetutoring@gmail.com)
 
-## Project Details
-
-Vite starter template with React and Typescript. It provides a solid foundation for building web applications using modern technologies. This template includes support for environment variables, allowing easy configuration of your project. It also leverages Sass for styling, making it convenient to create visually appealing designs.
-
-## Getting Started
-
-To start the development server, run the following command `npm run dev`
-To build the project, run the following command `npm run build`
-To preview the built project, run the following command `npm run preview`
