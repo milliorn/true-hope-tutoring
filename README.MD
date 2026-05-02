@@ -68,4 +68,3 @@ For inquiries or to schedule a session, please contact me:
 
 - Phone: (559) 930-1934
 - Email: [truehopetutoring@gmail.com](mailto:truehopetutoring@gmail.com)
-
