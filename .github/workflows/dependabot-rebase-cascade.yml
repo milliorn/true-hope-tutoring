@@ -1,8 +1,9 @@
 name: Dependabot stale rebase
 
 on:
-  pull_request_target:
-    types: [closed]
+  workflow_run:
+    workflows: ["Dependabot reviewer"]
+    types: [completed]
     branches: [main]
 
 permissions:
@@ -12,10 +13,8 @@ jobs:
   rebase-stale-dependabot-prs:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-    # Only fire when a Dependabot PR was actually merged (not closed/abandoned)
-    if: |
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.user.login == 'dependabot[bot]'
+    # Only fire when the reviewer workflow approved and merged (conclusion = success)
+    if: github.event.workflow_run.conclusion == 'success'
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
