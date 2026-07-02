@@ -19,17 +19,24 @@ jobs:
     # Only fire when the reviewer workflow approved and merged (conclusion = success)
     if: github.event.workflow_run.conclusion == 'success'
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Dependabot only honors @dependabot commands from a commenter with
+      # push access. A GITHUB_TOKEN-authored comment (github-actions[bot])
+      # is silently rejected ("only users with push access"), which used to
+      # make this job re-comment on every PR on every run forever without
+      # ever actually rebasing anything. DEPENDABOT_REBASE_PAT must be a PAT
+      # (classic or fine-grained with pull-requests:write) or GitHub App
+      # installation token belonging to an account with push access.
+      GITHUB_TOKEN: ${{ secrets.DEPENDABOT_REBASE_PAT }}
 
     steps:
-      - name: Rebase remaining open Dependabot PRs
+      - name: Rebase stale/diverged open Dependabot PRs
         run: |
           gh pr list \
             --repo "${{ github.repository }}" \
             --author "app/dependabot" \
             --state open \
-            --json number \
-            --jq '.[].number' | \
+            --json number,mergeStateStatus \
+            --jq '.[] | select(.mergeStateStatus == "BEHIND" or .mergeStateStatus == "BLOCKED" or .mergeStateStatus == "DIRTY") | .number' | \
           while read -r pr; do
             echo "Requesting rebase on PR #$pr"
             gh pr comment "$pr" \
