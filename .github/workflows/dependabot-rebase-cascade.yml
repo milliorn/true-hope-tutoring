@@ -26,7 +26,7 @@ jobs:
       # ever actually rebasing anything. DEPENDABOT_REBASE_PAT must be a PAT
       # (classic or fine-grained with pull-requests:write) or GitHub App
       # installation token belonging to an account with push access.
-      GITHUB_TOKEN: ${{ secrets.DEPENDABOT_REBASE_PAT }}
+      GH_TOKEN: ${{ secrets.DEPENDABOT_REBASE_PAT }}
 
     steps:
       - name: Rebase stale/diverged open Dependabot PRs
@@ -37,9 +37,6 @@ jobs:
             --state open \
             --json number,mergeStateStatus \
             --jq '.[] | select(.mergeStateStatus == "BEHIND" or .mergeStateStatus == "BLOCKED" or .mergeStateStatus == "DIRTY") | .number' | \
-          while read -r pr; do
-            echo "Requesting rebase on PR #$pr"
-            gh pr comment "$pr" \
-              --repo "${{ github.repository }}" \
-              --body "@dependabot rebase"
-          done
+          xargs -P 8 -I{} gh pr comment {} \
+            --repo "${{ github.repository }}" \
+            --body "@dependabot rebase"
