@@ -9,7 +9,13 @@ on:
 jobs:
   merge-gatekeeper:
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    # This repo also waits on Netlify deploy-preview checks alongside the
+    # GitHub Actions ones. The action's own internal poll timeout does not
+    # exit gracefully on expiry, doValidateCmd returns ctx.Err() on its
+    # context deadline, which fails the step exactly like the job-level
+    # timeout would, just sooner. So the only real fix is giving the job
+    # itself enough time to wait out the slowest sibling check.
+    timeout-minutes: 5
     permissions:
       checks: read
       statuses: read
@@ -18,8 +24,3 @@ jobs:
         uses: upsidr/merge-gatekeeper@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          # Action's own default poll timeout is 600s, far past this job's
-          # 2min limit. Without this, a slow sibling check (this repo also
-          # waits on Netlify deploy-preview checks) gets killed by the job's
-          # hard timeout instead of the action's own graceful one.
-          timeout: 100
