@@ -5,7 +5,6 @@ on:
   pull_request:
     branches:
       - main
-      - master
 
 jobs:
   merge-gatekeeper:
@@ -19,3 +18,8 @@ jobs:
         uses: upsidr/merge-gatekeeper@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          # Action's own default poll timeout is 600s, far past this job's
+          # 2min limit. Without this, a slow sibling check (this repo also
+          # waits on Netlify deploy-preview checks) gets killed by the job's
+          # hard timeout instead of the action's own graceful one.
+          timeout: 100
