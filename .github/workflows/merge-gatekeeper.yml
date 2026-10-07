@@ -9,12 +9,16 @@ on:
 jobs:
   merge-gatekeeper:
     runs-on: ubuntu-latest
-    # This repo also waits on Netlify deploy-preview checks alongside the
-    # GitHub Actions ones. The action's own internal poll timeout does not
-    # exit gracefully on expiry, doValidateCmd returns ctx.Err() on its
-    # context deadline, which fails the step exactly like the job-level
-    # timeout would, just sooner. So the only real fix is giving the job
-    # itself enough time to wait out the slowest sibling check.
+    # All Netlify sub-checks on this repo consistently complete in 13-16s
+    # (checked across 5 recent merged PRs), so 2min was not failing because
+    # of a slow Netlify check. It was failing because review-dependabot-pr
+    # can legitimately take much longer than 2min to actually run (e.g. a
+    # PAT auth retry), and the action's own internal poll timeout does not
+    # exit gracefully on expiry (doValidateCmd returns ctx.Err() on its
+    # context deadline), which fails the step exactly like the job-level
+    # timeout does, just sooner. 5min gives real margin for that case
+    # without masking a genuinely stuck check the way a much larger value
+    # would.
     timeout-minutes: 5
     permissions:
       checks: read
