@@ -18,14 +18,27 @@ export function Rates() {
               </span>
               <ul className="pl-6 list-none">
                 {Array.isArray(category.fees) ? (
-                  category.fees.map((fee, subIndex) => (
-                    <li
-                      key={subIndex}
-                      className="py-1 sm:py-px md:py-2 lg:py-3 xl:py-4 2xl:py-5 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
-                    >
-                      {fee}
-                    </li>
-                  ))
+                  category.fees.map((fee, subIndex) =>
+                    Array.isArray(fee) ? (
+                      <ul key={subIndex} className="pl-6 list-none">
+                        {fee.map((subFee, subFeeIndex) => (
+                          <li
+                            key={subFeeIndex}
+                            className="py-1 sm:py-px md:py-2 lg:py-3 xl:py-4 2xl:py-5 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+                          >
+                            {subFee}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <li
+                        key={subIndex}
+                        className="py-1 sm:py-px md:py-2 lg:py-3 xl:py-4 2xl:py-5 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+                      >
+                        {fee}
+                      </li>
+                    ),
+                  )
                 ) : (
                   <li className="py-1">{category.fees}</li>
                 )}
