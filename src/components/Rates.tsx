@@ -20,7 +20,10 @@ export function Rates() {
                 {Array.isArray(category.fees) ? (
                   category.fees.map((fee, subIndex) =>
                     Array.isArray(fee) ? (
-                      <li key={subIndex}>
+                      <li
+                        key={subIndex}
+                        className="py-1 sm:py-px md:py-2 lg:py-3 xl:py-4 2xl:py-5 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
+                      >
                         <ul className="pl-6 list-none">
                           {fee.map((subFee, subFeeIndex) => (
                             <li
