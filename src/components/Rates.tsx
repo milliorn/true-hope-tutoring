@@ -1,5 +1,8 @@
 import { ADDITIONAL_FEES, TUTORING_FEES } from "./data";
 
+const FEE_ITEM_CLASS =
+  "py-1 sm:py-px md:py-2 lg:py-3 xl:py-4 2xl:py-5 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl";
+
 export function Rates() {
   return (
     <section
@@ -20,26 +23,17 @@ export function Rates() {
                 {Array.isArray(category.fees) ? (
                   category.fees.map((fee, subIndex) =>
                     Array.isArray(fee) ? (
-                      <li
-                        key={subIndex}
-                        className="py-1 sm:py-px md:py-2 lg:py-3 xl:py-4 2xl:py-5 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
-                      >
+                      <li key={subIndex} className={FEE_ITEM_CLASS}>
                         <ul className="pl-6 list-none">
                           {fee.map((subFee, subFeeIndex) => (
-                            <li
-                              key={subFeeIndex}
-                              className="py-1 sm:py-px md:py-2 lg:py-3 xl:py-4 2xl:py-5 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
-                            >
+                            <li key={subFeeIndex} className={FEE_ITEM_CLASS}>
                               {subFee}
                             </li>
                           ))}
                         </ul>
                       </li>
                     ) : (
-                      <li
-                        key={subIndex}
-                        className="py-1 sm:py-px md:py-2 lg:py-3 xl:py-4 2xl:py-5 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
-                      >
+                      <li key={subIndex} className={FEE_ITEM_CLASS}>
                         {fee}
                       </li>
                     ),
@@ -57,10 +51,7 @@ export function Rates() {
           </span>
           <ul className="pt-2 pl-6 list-none">
             {ADDITIONAL_FEES.map((fee, index) => (
-              <li
-                key={index}
-                className="py-1 sm:py-px md:py-2 lg:py-3 xl:py-4 2xl:py-5 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl"
-              >
+              <li key={index} className={FEE_ITEM_CLASS}>
                 {fee}
               </li>
             ))}
