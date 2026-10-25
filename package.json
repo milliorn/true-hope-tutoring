@@ -3,6 +3,12 @@
   "private": true,
   "version": "0.0.3",
   "type": "module",
+  "license": "UNLICENSED",
+  "author": "Scott Milliorn",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/milliorn/true-hope-tutoring.git"
+  },
   "homepage": "https://milliorn.github.io/true-hope-tutoring/",
   "scripts": {
     "dev": "vite",
