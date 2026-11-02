@@ -23,6 +23,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     if: ${{ github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'chore/release-v') }}
+    # Keyed per release branch (chore/release-vX.Y.Z), not the whole
+    # workflow: two closed+merged events resolving close together for the
+    # SAME release PR (a redelivered webhook, or a manual re-run) would
+    # otherwise race past the git ls-remote idempotency check below before
+    # either push lands. Two DIFFERENT release PRs tagging different
+    # versions don't conflict, so they shouldn't have to queue behind each
+    # other.
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.head.ref }}
+      cancel-in-progress: false
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7

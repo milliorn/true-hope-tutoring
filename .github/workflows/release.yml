@@ -46,10 +46,18 @@ jobs:
     # running), while still catching the real case we're guarding against.
     if: ${{ !contains(github.event.head_commit.message, 'chore(release):') }}
     steps:
+      # token: the PAT, not the implicit GITHUB_TOKEN actions/checkout would
+      # otherwise persist. The later `git push origin "$branch"` (a bare git
+      # command, not a gh CLI call) authenticates off whatever credential
+      # checkout persisted here, not off the GH_TOKEN env var set further
+      # down, GH_TOKEN only affects gh CLI calls. Without this, that push
+      # would silently go out as github-actions[bot] despite every comment
+      # in this file explaining why it needs to be the PAT.
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
+          token: ${{ secrets.DEPENDABOT_REBASE_PAT }}
 
       - name: Set up Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
@@ -107,12 +115,17 @@ jobs:
           version=$(node -p "require('./package.json').version")
           branch="chore/release-v${version}"
 
-          # Guard against a duplicate run racing a still-open release PR for
-          # the same version: if one's already open, stop here rather than
-          # force-pushing over it (which would silently invalidate any
-          # review already in progress) or erroring out of gh pr create.
-          if gh pr list --head "$branch" --state open --json number --jq '.[0].number' | grep -q .; then
-            echo "A release PR for $branch is already open, skipping."
+          # Guard against opening a second release PR while an earlier one
+          # is still open. This checks any chore/release-v* branch, not just
+          # one matching this run's computed version: an unmerged release PR
+          # means its version bump isn't tagged yet, so a later run recomputes
+          # a different (higher) next version from the same unreleased
+          # commits plus whatever landed since, and would otherwise open a
+          # second PR with overlapping/conflicting CHANGELOG and version
+          # content instead of being caught by an exact-branch-name match.
+          open_release_prs=$(gh pr list --state open --json headRefName --jq '[.[] | select(.headRefName | startswith("chore/release-v"))] | length')
+          if [ "$open_release_prs" -gt 0 ]; then
+            echo "A release PR is already open, skipping."
             exit 0
           fi
 
