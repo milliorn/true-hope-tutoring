@@ -2,11 +2,14 @@
 # version bump + CHANGELOG.md update, so those stay current without a manual
 # `npm run release` step.
 #
-# This opens a PR rather than pushing straight to main because the repo's
-# "main" ruleset requires every change to land through a pull request
-# (squash or rebase merge only, non_fast_forward, required_linear_history) --
-# a direct push would be rejected, and neither GITHUB_TOKEN's nor the PAT's
-# bot identity is covered by the ruleset's admin-role bypass actor.
+# This opens a PR rather than pushing straight to main because it keeps the
+# release change reviewable and gated through the same checks every other PR
+# gets (merge-gatekeeper, CI, dependency review), even though a direct push
+# by this PAT would not actually be rejected by the ruleset: the PAT acts as
+# its owning user, who holds the Admin repository role, and the ruleset's
+# bypass_actors entry (RepositoryRole, bypass_mode: always) covers that role.
+# GITHUB_TOKEN, by contrast, has no repository role and genuinely cannot
+# bypass the ruleset.
 #
 # DEPENDABOT_REBASE_PAT (not GITHUB_TOKEN) authenticates the PR-open step.
 # A GITHUB_TOKEN-authored pull_request event does not trigger other
@@ -66,9 +69,23 @@ jobs:
         id: guard
         env:
           GH_TOKEN: ${{ secrets.DEPENDABOT_REBASE_PAT }}
+          # Passed as an env var, not interpolated directly into the script,
+          # because head_commit.message is attacker-influenceable (anyone
+          # who can push/merge a commit controls this string) and inlining
+          # it into the `run:` template before bash sees it would be a
+          # shell-injection hole.
+          HEAD_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
-          head_refs=$(gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/pulls" --jq '.[].head.ref')
-          if echo "$head_refs" | grep -q "^chore/release-v"; then
+          # The commit-to-PR association API is a secondary index and can
+          # lag briefly right after a squash-merge lands -- i.e. exactly when
+          # this job fires. An empty/failed lookup here must not be treated
+          # the same as "confirmed not a release landing", so fall back to
+          # the commit message (defeatable by a maintainer hand-editing the
+          # squash message, but only in the fail-safe direction: it can only
+          # cause a false "is_release_landing=true", never a false "false").
+          head_refs=$(gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/pulls" --jq '.[].head.ref' || true)
+          if echo "$head_refs" | grep -q "^chore/release-v" || \
+             [[ "$HEAD_COMMIT_MESSAGE" == chore\(release\):* ]]; then
             echo "is_release_landing=true" >> "$GITHUB_OUTPUT"
           else
             echo "is_release_landing=false" >> "$GITHUB_OUTPUT"
@@ -117,6 +134,7 @@ jobs:
         id: release
         if: steps.guard.outputs.is_release_landing == 'false'
         run: |
+          set -euo pipefail
           before=$(node -p "require('./package.json').version")
           npm run release -- --noBumpWhenEmptyChanges --skip.tag
           after=$(node -p "require('./package.json').version")
@@ -142,10 +160,22 @@ jobs:
           # commits plus whatever landed since, and would otherwise open a
           # second PR with overlapping/conflicting CHANGELOG and version
           # content instead of being caught by an exact-branch-name match.
-          open_release_prs=$(gh pr list --state open --json headRefName --jq '[.[] | select(.headRefName | startswith("chore/release-v"))] | length')
+          # --limit 100: gh pr list defaults to 30. With 30+ open PRs (a
+          # Dependabot batch, or a stalled automerge backlog) a genuinely
+          # open release PR could sit outside a default-sized page, this
+          # count would read 0, and a second conflicting release PR would
+          # be opened despite the guard below.
+          open_release_prs=$(gh pr list --state open --limit 100 --json headRefName --jq '[.[] | select(.headRefName | startswith("chore/release-v"))] | length')
           if [ "$open_release_prs" -gt 0 ]; then
             echo "A release PR is already open, skipping."
             exit 0
+          fi
+
+          # Warn (rather than silently overwrite) if this branch already
+          # exists on origin with no open PR -- i.e. an abandoned release
+          # branch that tag-release.yml's cleanup job hasn't (yet) removed.
+          if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+            echo "::warning::$branch already exists on origin with no open PR; force-pushing over it."
           fi
 
           git checkout -b "$branch"

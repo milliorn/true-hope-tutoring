@@ -31,13 +31,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     if: ${{ github.event.pull_request.merged == false && startsWith(github.event.pull_request.head.ref, 'chore/release-v') }}
-    permissions:
-      contents: write
     steps:
       - name: Delete abandoned release branch
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/${{ github.event.pull_request.head.ref }}"
+        run: |
+          # Tolerate the ref already being gone (422): delete_branch_on_merge,
+          # a maintainer manually deleting it from the closed-PR page before
+          # this job runs, or a redelivered `closed` webhook can all get here
+          # first. The desired end state (branch gone) already holds in that
+          # case, so this job should not fail for having nothing left to do.
+          gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/${{ github.event.pull_request.head.ref }}" || \
+            echo "Branch already gone, nothing to clean up."
 
   tag:
     runs-on: ubuntu-latest
