@@ -1,10 +1,13 @@
 # Creates the v<version> git tag after a release.yml PR actually merges into
 # main, rather than tagging when the PR is opened. main's ruleset allows
 # squash merges, which rewrite the commit, so a tag created before merge would
-# point at a commit no longer reachable from main's history. Tagging here,
-# against github.sha (the real post-merge commit on main), keeps the tag
-# meaningful regardless of which allowed merge method (squash or rebase) was
-# used.
+# point at a commit no longer reachable from main's history.
+#
+# Checks out pull_request.merge_commit_sha, the exact commit GitHub created
+# for this PR's merge, rather than ref: main. main's tip can move between
+# this PR merging and this job running (another PR merging first, for
+# example), so checking out main itself risks tagging an unrelated later
+# commit instead of this release's actual merge commit.
 name: Tag release
 
 on:
@@ -24,10 +27,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
-          ref: main
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
 
       - name: Create and push tag
         run: |
           version=$(node -p "require('./package.json').version")
-          git tag "v${version}"
-          git push origin "v${version}"
+          tag="v${version}"
+
+          # Idempotency guard: a manual re-run of this job (e.g. after an
+          # unrelated transient failure) or a duplicate webhook delivery of
+          # the same closed+merged event would otherwise fail on the second
+          # attempt, since both git tag and git push reject a tag that
+          # already exists.
+          if git ls-remote --tags origin "refs/tags/$tag" | grep -q .; then
+            echo "$tag already exists on origin, skipping."
+            exit 0
+          fi
+
+          git tag "$tag"
+          git push origin "$tag"

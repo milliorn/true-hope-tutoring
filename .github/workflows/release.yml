@@ -5,15 +5,22 @@
 # This opens a PR rather than pushing straight to main because the repo's
 # "main" ruleset requires every change to land through a pull request
 # (squash or rebase merge only, non_fast_forward, required_linear_history) --
-# a direct push would be rejected, and GITHUB_TOKEN's bot identity is not
-# covered by the ruleset's admin-role bypass actor.
+# a direct push would be rejected, and neither GITHUB_TOKEN's nor the PAT's
+# bot identity is covered by the ruleset's admin-role bypass actor.
 #
-# GITHUB_TOKEN (not DEPENDABOT_REBASE_PAT) authenticates the push to the
-# release branch on purpose: a GITHUB_TOKEN-authored push does not retrigger
-# other workflow runs (GitHub's anti-recursion protection), so opening this
-# PR can't cause an infinite loop back into this same workflow the way a
-# PAT-authenticated push would. Merging the resulting PR later is a normal,
-# human-authored merge event, so it triggers the usual checks as expected.
+# DEPENDABOT_REBASE_PAT (not GITHUB_TOKEN) authenticates the PR-open step.
+# A GITHUB_TOKEN-authored pull_request event does not trigger other
+# pull_request-scoped workflows (GitHub's anti-recursion protection), which
+# would silently strand this PR forever: ci.yml, dependency-review.yml, and
+# merge-gatekeeper.yml all trigger on pull_request, and merge-gatekeeper is
+# this repo's one required status check, so a GITHUB_TOKEN-opened PR could
+# never pass review-gating. A PAT-authored PR is a normal event and triggers
+# those workflows correctly, the same reason automerge.yml uses this PAT for
+# its own gh pr merge call.
+#
+# This workflow's own push to main (the squash-merged release PR landing)
+# is what must not loop back into this job, not the PR-open event, so the
+# loop guard below is what prevents that, not the choice of token.
 name: Release
 
 on:
@@ -32,9 +39,12 @@ jobs:
   release:
     runs-on: ubuntu-latest
     timeout-minutes: 3
-    # Skip anything already on a release branch/commit so this job never
-    # chases its own output.
-    if: ${{ !startsWith(github.event.head_commit.message, 'chore(release):') }}
+    # Skip the release PR's own squash-merge commit so this job never
+    # chases its own output. head_commit can be null/empty on some event
+    # deliveries; contains() on an empty string is false, which correctly
+    # does not skip (fails open toward running, not toward silently never
+    # running), while still catching the real case we're guarding against.
+    if: ${{ !contains(github.event.head_commit.message, 'chore(release):') }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -64,32 +74,48 @@ jobs:
       # does nothing: yargs treats a leading "no-" as negating the remaining
       # flag name, and this flag's name already starts with "no", so it
       # collides with yargs' own negation handling instead of setting the
-      # option. When skipped, the tool prints the exact string below and
-      # exits 0 without touching package.json or CHANGELOG.md.
+      # option. When skipped, the tool prints an internal, unversioned log
+      # message rather than a stable machine-readable signal, so skip
+      # detection below compares package.json's version before/after instead
+      # of matching that string.
+      #
+      # --skip.tag skips creating the local git tag entirely. commit-and-tag-
+      # version's default behavior tags immediately, but that tag would point
+      # at a commit that's not on main yet (this is still a local branch at
+      # this point), and main's ruleset allows squash merges, which rewrite
+      # the commit on merge, making a tag created now unreachable from main's
+      # history once merged. tag-release.yml creates the real tag after this
+      # PR actually merges, against whatever commit squashing/rebasing
+      # produced on main.
       - name: Run release
         id: release
         run: |
-          output=$(npm run release -- --noBumpWhenEmptyChanges 2>&1)
-          echo "$output"
-          if echo "$output" | grep -q "no commits found, so not bumping version"; then
+          before=$(node -p "require('./package.json').version")
+          npm run release -- --noBumpWhenEmptyChanges --skip.tag
+          after=$(node -p "require('./package.json').version")
+          if [ "$before" = "$after" ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
           else
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
-      # No tag push here on purpose. This PR's commit isn't on main yet, and
-      # main's ruleset allows squash merges, which would leave a tag pointing
-      # at a commit that's unreachable from main's history once merged.
-      # tag-release.yml creates the real tag after this PR actually merges,
-      # against whatever commit squashing/rebasing produced on main.
       - name: Open release PR
         if: steps.release.outputs.skip == 'false'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.DEPENDABOT_REBASE_PAT }}
         run: |
           version=$(node -p "require('./package.json').version")
           branch="chore/release-v${version}"
-          git tag -d "v${version}"
+
+          # Guard against a duplicate run racing a still-open release PR for
+          # the same version: if one's already open, stop here rather than
+          # force-pushing over it (which would silently invalidate any
+          # review already in progress) or erroring out of gh pr create.
+          if gh pr list --head "$branch" --state open --json number --jq '.[0].number' | grep -q .; then
+            echo "A release PR for $branch is already open, skipping."
+            exit 0
+          fi
+
           git checkout -b "$branch"
           git push origin "$branch" --force
           gh pr create \
