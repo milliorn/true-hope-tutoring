@@ -39,12 +39,6 @@ jobs:
   release:
     runs-on: ubuntu-latest
     timeout-minutes: 3
-    # Skip the release PR's own squash-merge commit so this job never
-    # chases its own output. head_commit can be null/empty on some event
-    # deliveries; contains() on an empty string is false, which correctly
-    # does not skip (fails open toward running, not toward silently never
-    # running), while still catching the real case we're guarding against.
-    if: ${{ !contains(github.event.head_commit.message, 'chore(release):') }}
     steps:
       # token: the PAT, not the implicit GITHUB_TOKEN actions/checkout would
       # otherwise persist. The later `git push origin "$branch"` (a bare git
@@ -59,16 +53,40 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.DEPENDABOT_REBASE_PAT }}
 
+      # Skip the release PR's own squash-merge commit so this job never
+      # chases its own output. Looks up the real PR(s) associated with this
+      # push's commit via the commits/{sha}/pulls API and checks their
+      # actual head ref, rather than string-matching head_commit.message
+      # for "chore(release):". The commit message is free text a maintainer
+      # can edit in GitHub's merge UI before confirming a squash merge, so
+      # matching it is defeatable; the PR's head ref is not editable the
+      # same way and is the same reliable signal tag-release.yml already
+      # uses for this same purpose.
+      - name: Check whether this push is a release PR landing
+        id: guard
+        env:
+          GH_TOKEN: ${{ secrets.DEPENDABOT_REBASE_PAT }}
+        run: |
+          head_refs=$(gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/pulls" --jq '.[].head.ref')
+          if echo "$head_refs" | grep -q "^chore/release-v"; then
+            echo "is_release_landing=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_release_landing=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Set up Node.js
+        if: steps.guard.outputs.is_release_landing == 'false'
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version: "lts/*"
           cache: "npm"
 
       - name: Install dependencies
+        if: steps.guard.outputs.is_release_landing == 'false'
         run: npm ci
 
       - name: Configure git identity
+        if: steps.guard.outputs.is_release_landing == 'false'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -97,6 +115,7 @@ jobs:
       # produced on main.
       - name: Run release
         id: release
+        if: steps.guard.outputs.is_release_landing == 'false'
         run: |
           before=$(node -p "require('./package.json').version")
           npm run release -- --noBumpWhenEmptyChanges --skip.tag
@@ -108,7 +127,7 @@ jobs:
           fi
 
       - name: Open release PR
-        if: steps.release.outputs.skip == 'false'
+        if: steps.guard.outputs.is_release_landing == 'false' && steps.release.outputs.skip == 'false'
         env:
           GH_TOKEN: ${{ secrets.DEPENDABOT_REBASE_PAT }}
         run: |

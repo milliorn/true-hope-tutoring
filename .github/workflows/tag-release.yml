@@ -19,6 +19,26 @@ permissions:
   contents: write
 
 jobs:
+  # Repo-level delete_branch_on_merge only cleans up a chore/release-v*
+  # branch when its PR merges. If one is closed WITHOUT merging instead (a
+  # release PR superseded by a later, bigger one, or closed manually), the
+  # branch is left behind on origin. release.yml's duplicate-release guard
+  # only checks for an open PR on that branch name, not the branch's mere
+  # existence, so a later run computing the same version would silently
+  # force-push over the abandoned branch's content. Deleting it here on the
+  # closed-without-merge path keeps that from being able to happen.
+  cleanup-abandoned-release-branch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    if: ${{ github.event.pull_request.merged == false && startsWith(github.event.pull_request.head.ref, 'chore/release-v') }}
+    permissions:
+      contents: write
+    steps:
+      - name: Delete abandoned release branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/${{ github.event.pull_request.head.ref }}"
+
   tag:
     runs-on: ubuntu-latest
     timeout-minutes: 2
