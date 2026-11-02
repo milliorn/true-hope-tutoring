@@ -1,0 +1,33 @@
+# Creates the v<version> git tag after a release.yml PR actually merges into
+# main, rather than tagging when the PR is opened. main's ruleset allows
+# squash merges, which rewrite the commit, so a tag created before merge would
+# point at a commit no longer reachable from main's history. Tagging here,
+# against github.sha (the real post-merge commit on main), keeps the tag
+# meaningful regardless of which allowed merge method (squash or rebase) was
+# used.
+name: Tag release
+
+on:
+  pull_request:
+    types: [closed]
+    branches: ["main"]
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    if: ${{ github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'chore/release-v') }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: main
+
+      - name: Create and push tag
+        run: |
+          version=$(node -p "require('./package.json').version")
+          git tag "v${version}"
+          git push origin "v${version}"
