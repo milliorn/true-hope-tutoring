@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file, generated from [Conventional Commits](https://www.conventionalcommits.org/) via [auto-generate-changelog](https://github.com/BobAnkh/auto-generate-changelog) on release.
 
 ### [0.0.3](https://github.com/milliorn/true-hope-tutoring/compare/v0.0.2...v0.0.3) (2026-04-18)
 
