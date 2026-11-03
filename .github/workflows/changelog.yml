@@ -10,6 +10,12 @@
 # bypass entry on it, so a direct push would be rejected. The generator
 # instead opens a PR (BRANCH -> PULL_REQUEST inputs below) for a human to
 # review and merge, the same way every other change lands on main.
+#
+# ACCESS_TOKEN must be a PAT (CHANGELOG_PAT), not GITHUB_TOKEN: GitHub Actions
+# does not fire pull_request-triggered workflows (ci.yml, merge-gatekeeper.yml)
+# for PRs authored by GITHUB_TOKEN, so the PR would never satisfy the
+# required merge-gatekeeper status check and would be stuck unmergeable. A
+# PAT-authored PR triggers those workflows normally.
 name: Changelog
 
 on:
@@ -34,13 +40,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      # GITHUB_TOKEN-authored PR, not a cross-workflow trigger, so no PAT is
-      # needed here (unlike the Dependabot rebase-cascade workflows).
       - name: Update CHANGELOG.md
         uses: BobAnkh/auto-generate-changelog@e8e1af1493032e025901cfdeb9ea6e67e4ffe208 # v1.3.2
         with:
           REPO_NAME: ${{ github.repository }}
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.CHANGELOG_PAT }}
           PATH: "CHANGELOG.md"
           BRANCH: "changelog/update-${{ github.event.release.tag_name }}"
           PULL_REQUEST: "main"
