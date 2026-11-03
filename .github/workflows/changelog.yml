@@ -1,0 +1,37 @@
+# Fires when a GitHub Release is published and regenerates CHANGELOG.md from
+# Conventional Commit history (feat/fix/etc.) since the last release covered
+# in the file. fetch-depth: 0 is required -- the generator needs full commit
+# history, not just the tip, to walk prior tags/releases.
+name: Changelog
+
+on:
+  release:
+    types: [created]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.release.tag_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  update-changelog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+
+      # GITHUB_TOKEN-authored commit, not a cross-workflow trigger, so no PAT
+      # is needed here (unlike the Dependabot rebase-cascade workflows).
+      - name: Update CHANGELOG.md
+        uses: BobAnkh/auto-generate-changelog@e8e1af1493032e025901cfdeb9ea6e67e4ffe208 # v1.3.2
+        with:
+          REPO_NAME: ${{ github.repository }}
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PATH: "CHANGELOG.md"
+          COMMIT_MESSAGE: "docs(changelog): update release notes"
+          TYPE: "feat:Features,fix:Bug Fixes"
