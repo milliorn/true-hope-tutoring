@@ -20,9 +20,16 @@
 # The concurrency group is keyed on the workflow only (not the tag), so
 # releases published close together are serialized rather than racing to
 # open two PRs that both edit CHANGELOG.md from the same base. The branch
-# name includes run_id so republishing the same tag (e.g. after editing
-# release notes) can't collide with a still-open prior PR/branch -- the
-# underlying action has no existing-PR check and hard-fails if it does.
+# name includes run_id and run_attempt: run_id alone is NOT enough, since
+# GitHub keeps run_id identical across a manual "Re-run jobs" of the same
+# run -- only run_attempt increments. Without run_attempt, a rerun after a
+# failure (e.g. a transient API error, or the timeout below) would recompute
+# the same branch/PR the first attempt already created, and the underlying
+# action has no existing-PR check, so it hard-fails the same way every time.
+# A collision can also happen across distinct runs if a release is deleted
+# and republished under the same tag, or a draft is published, while the
+# prior run's PR/branch is still open -- run_attempt doesn't help there, but
+# that case is self-resolving: just close/merge or delete the stale PR.
 name: Changelog
 
 on:
@@ -34,8 +41,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
   update-changelog:
@@ -56,7 +62,7 @@ jobs:
           REPO_NAME: ${{ github.repository }}
           ACCESS_TOKEN: ${{ secrets.CHANGELOG_PAT }}
           PATH: "CHANGELOG.md"
-          BRANCH: "changelog/update-${{ github.event.release.tag_name }}-${{ github.run_id }}"
+          BRANCH: "changelog/update-${{ github.event.release.tag_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
           PULL_REQUEST: "main"
           COMMIT_MESSAGE: "docs(changelog): update release notes"
           TYPE: "feat:Features,fix:Bug Fixes"
