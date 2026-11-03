@@ -16,6 +16,13 @@
 # for PRs authored by GITHUB_TOKEN, so the PR would never satisfy the
 # required merge-gatekeeper status check and would be stuck unmergeable. A
 # PAT-authored PR triggers those workflows normally.
+#
+# The concurrency group is keyed on the workflow only (not the tag), so
+# releases published close together are serialized rather than racing to
+# open two PRs that both edit CHANGELOG.md from the same base. The branch
+# name includes run_id so republishing the same tag (e.g. after editing
+# release notes) can't collide with a still-open prior PR/branch -- the
+# underlying action has no existing-PR check and hard-fails if it does.
 name: Changelog
 
 on:
@@ -23,8 +30,8 @@ on:
     types: [published]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.release.tag_name }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -32,6 +39,9 @@ permissions:
 
 jobs:
   update-changelog:
+    # Pre-releases (RCs, betas) aren't final -- don't document them in
+    # CHANGELOG.md, which is scoped to real releases.
+    if: ${{ !github.event.release.prerelease }}
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
@@ -46,7 +56,7 @@ jobs:
           REPO_NAME: ${{ github.repository }}
           ACCESS_TOKEN: ${{ secrets.CHANGELOG_PAT }}
           PATH: "CHANGELOG.md"
-          BRANCH: "changelog/update-${{ github.event.release.tag_name }}"
+          BRANCH: "changelog/update-${{ github.event.release.tag_name }}-${{ github.run_id }}"
           PULL_REQUEST: "main"
           COMMIT_MESSAGE: "docs(changelog): update release notes"
           TYPE: "feat:Features,fix:Bug Fixes"
