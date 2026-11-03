@@ -1,12 +1,14 @@
 # Source repository: https://github.com/BobAnkh/auto-generate-changelog
 # Public documentation: https://github.com/marketplace/actions/auto-generate-changelog
 #
-# Fires when a GitHub Release is published and regenerates CHANGELOG.md from
-# Conventional Commit history (feat/fix/etc.) since the last release covered
-# in the file. The generator reads commit/tag/release data via the GitHub
-# API, not local git history -- checkout is only needed because it reads
-# and rewrites PATH (CHANGELOG.md) as a file in the workspace, so a shallow
-# checkout of the default branch is sufficient.
+# Fires on `published` (a release, prerelease or not, goes live) and on
+# `released` (GitHub's event specifically for a prerelease being promoted to
+# a full release -- that promotion does NOT refire `published`) and
+# regenerates CHANGELOG.md from Conventional Commit history (feat/fix/etc.)
+# since the last release covered in the file. No checkout step: the
+# generator does everything -- reading commits/tags and reading/writing
+# CHANGELOG.md -- via the GitHub API (repo.get_contents/update_file/
+# create_file), never touching a local workspace.
 #
 # main is protected by a ruleset requiring PRs, and GITHUB_TOKEN has no
 # bypass entry on it, so a direct push would be rejected. The generator
@@ -28,33 +30,35 @@
 # cover the dropped release's commits.
 #
 # The branch name includes run_id and run_attempt: run_id alone is NOT
-# enough, since
-# GitHub keeps run_id identical across a manual "Re-run jobs" of the same
-# run -- only run_attempt increments. Without run_attempt, a rerun after a
-# failure (e.g. a transient API error, or the timeout below) would recompute
-# the same branch/PR the first attempt already created, and the underlying
-# action has no existing-PR check, so it hard-fails the same way every time.
-# A collision can also happen across distinct runs if a release is deleted
-# and republished under the same tag, or a draft is published, while the
-# prior run's PR/branch is still open -- run_attempt doesn't help there, but
-# that case is self-resolving: just close/merge or delete the stale PR.
+# enough, since GitHub keeps run_id identical across a manual "Re-run jobs"
+# of the same run -- only run_attempt increments. Without run_attempt, a
+# rerun after a failure (e.g. a transient API error, or the timeout below)
+# would recompute the same branch/PR the first attempt already created, and
+# the underlying action has no existing-PR check, so it hard-fails the same
+# way every time. A collision can also happen across distinct runs if a
+# release is deleted and republished under the same tag, or a draft is
+# published, while the prior run's PR/branch is still open -- run_attempt
+# doesn't help there, but that case is self-resolving: just close/merge or
+# delete the stale PR.
 name: Changelog
 
 on:
   release:
-    types: [published]
+    types: [published, released]
 
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: false
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   update-changelog:
     # Pre-releases (RCs, betas) aren't final -- don't document them in
-    # CHANGELOG.md, which is scoped to real releases.
+    # CHANGELOG.md, which is scoped to real releases. `released` only fires
+    # once a prerelease has been converted to a full release, so
+    # release.prerelease should already read false on that event; this guard
+    # is still here as a safety net in case that assumption is ever wrong.
     if: ${{ !github.event.release.prerelease }}
     runs-on: ubuntu-latest
     # 5 min, not 3: the action is a Docker action built from its own
@@ -62,9 +66,6 @@ jobs:
     # build on top of the changelog generation itself.
     timeout-minutes: 5
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-
       - name: Update CHANGELOG.md
         uses: BobAnkh/auto-generate-changelog@e8e1af1493032e025901cfdeb9ea6e67e4ffe208 # v1.3.2
         with:
