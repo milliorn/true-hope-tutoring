@@ -1,12 +1,20 @@
+# Source repository: https://github.com/BobAnkh/auto-generate-changelog
+# Public documentation: https://github.com/marketplace/actions/auto-generate-changelog
+#
 # Fires when a GitHub Release is published and regenerates CHANGELOG.md from
 # Conventional Commit history (feat/fix/etc.) since the last release covered
 # in the file. fetch-depth: 0 is required -- the generator needs full commit
 # history, not just the tip, to walk prior tags/releases.
+#
+# main is protected by a ruleset requiring PRs, and GITHUB_TOKEN has no
+# bypass entry on it, so a direct push would be rejected. The generator
+# instead opens a PR (BRANCH -> PULL_REQUEST inputs below) for a human to
+# review and merge, the same way every other change lands on main.
 name: Changelog
 
 on:
   release:
-    types: [created]
+    types: [published]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.release.tag_name }}
@@ -14,6 +22,7 @@ concurrency:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   update-changelog:
@@ -25,13 +34,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      # GITHUB_TOKEN-authored commit, not a cross-workflow trigger, so no PAT
-      # is needed here (unlike the Dependabot rebase-cascade workflows).
+      # GITHUB_TOKEN-authored PR, not a cross-workflow trigger, so no PAT is
+      # needed here (unlike the Dependabot rebase-cascade workflows).
       - name: Update CHANGELOG.md
         uses: BobAnkh/auto-generate-changelog@e8e1af1493032e025901cfdeb9ea6e67e4ffe208 # v1.3.2
         with:
           REPO_NAME: ${{ github.repository }}
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PATH: "CHANGELOG.md"
+          BRANCH: "changelog/update-${{ github.event.release.tag_name }}"
+          PULL_REQUEST: "main"
           COMMIT_MESSAGE: "docs(changelog): update release notes"
           TYPE: "feat:Features,fix:Bug Fixes"
