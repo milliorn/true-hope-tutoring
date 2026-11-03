@@ -1,12 +1,16 @@
 # Source repository: https://github.com/BobAnkh/auto-generate-changelog
 # Public documentation: https://github.com/marketplace/actions/auto-generate-changelog
 #
-# Fires on `published` (a release, prerelease or not, goes live) and on
-# `released` (GitHub's event specifically for a prerelease being promoted to
-# a full release -- that promotion does NOT refire `published`) and
-# regenerates CHANGELOG.md from Conventional Commit history (feat/fix/etc.)
-# since the last release covered in the file. No checkout step: the
-# generator does everything -- reading commits/tags and reading/writing
+# Fires on `published` and regenerates CHANGELOG.md from Conventional Commit
+# history (feat/fix/etc.) since the last release covered in the file.
+# `released` was tried too (meant to catch a prerelease later promoted to a
+# full release) and reverted: GitHub's own docs describe it as firing for a
+# release being published OR a prerelease being converted, i.e. it overlaps
+# with `published` for ordinary releases rather than being promotion-only,
+# which would have opened two competing changelog PRs per normal release.
+# A prerelease promoted to a full release later is a known, accepted gap --
+# re-publish or manually re-run this workflow to cover it. No checkout step:
+# the generator does everything -- reading commits/tags and reading/writing
 # CHANGELOG.md -- via the GitHub API (repo.get_contents/update_file/
 # create_file), never touching a local workspace.
 #
@@ -39,12 +43,16 @@
 # release is deleted and republished under the same tag, or a draft is
 # published, while the prior run's PR/branch is still open -- run_attempt
 # doesn't help there, but that case is self-resolving: just close/merge or
-# delete the stale PR.
+# delete the stale PR. The branch is prefixed docs/ (the Conventional
+# Commits type of the commit this PR makes, docs(changelog): ...) rather
+# than embedding the release tag name raw: git tags allow characters
+# (spaces, ~^:?*[, leading/trailing dots) that aren't valid in branch names,
+# and run_id/run_attempt already guarantee uniqueness on their own.
 name: Changelog
 
 on:
   release:
-    types: [published, released]
+    types: [published]
 
 concurrency:
   group: ${{ github.workflow }}
@@ -55,10 +63,7 @@ permissions: {}
 jobs:
   update-changelog:
     # Pre-releases (RCs, betas) aren't final -- don't document them in
-    # CHANGELOG.md, which is scoped to real releases. `released` only fires
-    # once a prerelease has been converted to a full release, so
-    # release.prerelease should already read false on that event; this guard
-    # is still here as a safety net in case that assumption is ever wrong.
+    # CHANGELOG.md, which is scoped to real releases.
     if: ${{ !github.event.release.prerelease }}
     runs-on: ubuntu-latest
     # 5 min, not 3: the action is a Docker action built from its own
@@ -72,7 +77,7 @@ jobs:
           REPO_NAME: ${{ github.repository }}
           ACCESS_TOKEN: ${{ secrets.CHANGELOG_PAT }}
           PATH: "CHANGELOG.md"
-          BRANCH: "changelog/update-${{ github.event.release.tag_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
+          BRANCH: "docs/changelog-update-${{ github.run_id }}-${{ github.run_attempt }}"
           PULL_REQUEST: "main"
           COMMIT_MESSAGE: "docs(changelog): update release notes"
-          TYPE: "feat:Features,fix:Bug Fixes"
+          TYPE: "feat:Features,fix:Bug Fixes,docs:Documentation,refactor:Refactor,perf:Performance Improvements,chore:Chores,ci:CI,test:Tests,style:Styles"
