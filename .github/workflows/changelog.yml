@@ -3,8 +3,10 @@
 #
 # Fires when a GitHub Release is published and regenerates CHANGELOG.md from
 # Conventional Commit history (feat/fix/etc.) since the last release covered
-# in the file. fetch-depth: 0 is required -- the generator needs full commit
-# history, not just the tip, to walk prior tags/releases.
+# in the file. The generator reads commit/tag/release data via the GitHub
+# API, not local git history -- checkout is only needed because it reads
+# and rewrites PATH (CHANGELOG.md) as a file in the workspace, so a shallow
+# checkout of the default branch is sufficient.
 #
 # main is protected by a ruleset requiring PRs, and GITHUB_TOKEN has no
 # bypass entry on it, so a direct push would be rejected. The generator
@@ -17,10 +19,16 @@
 # required merge-gatekeeper status check and would be stuck unmergeable. A
 # PAT-authored PR triggers those workflows normally.
 #
-# The concurrency group is keyed on the workflow only (not the tag), so
-# releases published close together are serialized rather than racing to
-# open two PRs that both edit CHANGELOG.md from the same base. The branch
-# name includes run_id and run_attempt: run_id alone is NOT enough, since
+# The concurrency group is keyed on the workflow only (not the tag), so a
+# second release published while one run is active queues behind it rather
+# than racing to open two PRs that both edit CHANGELOG.md from the same
+# base. Note GitHub only holds one pending run per group: a third release
+# published before the first finishes cancels the second's queued run, not
+# the first's -- that case needs manual follow-up (re-publish or re-run) to
+# cover the dropped release's commits.
+#
+# The branch name includes run_id and run_attempt: run_id alone is NOT
+# enough, since
 # GitHub keeps run_id identical across a manual "Re-run jobs" of the same
 # run -- only run_attempt increments. Without run_attempt, a rerun after a
 # failure (e.g. a transient API error, or the timeout below) would recompute
@@ -49,12 +57,13 @@ jobs:
     # CHANGELOG.md, which is scoped to real releases.
     if: ${{ !github.event.release.prerelease }}
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    # 5 min, not 3: the action is a Docker action built from its own
+    # Dockerfile (no prebuilt image), so every run pays a cold apt/pip
+    # build on top of the changelog generation itself.
+    timeout-minutes: 5
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-        with:
-          fetch-depth: 0
 
       - name: Update CHANGELOG.md
         uses: BobAnkh/auto-generate-changelog@e8e1af1493032e025901cfdeb9ea6e67e4ffe208 # v1.3.2
