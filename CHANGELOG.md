@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to this project will be documented in this file, generated from [Conventional Commits](https://www.conventionalcommits.org/) via [auto-generate-changelog](https://github.com/BobAnkh/auto-generate-changelog) on release.
+All notable changes to this project will be documented in this file, generated from [Conventional Commits](https://www.conventionalcommits.org/) via [auto-generate-changelog](https://github.com/BobAnkh/auto-generate-changelog) on release. Commit-type-to-section mapping is configured in [`.github/workflows/changelog.yml`](.github/workflows/changelog.yml)'s `TYPE` input.
 
 ### [0.0.3](https://github.com/milliorn/true-hope-tutoring/compare/v0.0.2...v0.0.3) (2026-04-18)
 

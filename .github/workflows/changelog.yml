@@ -9,7 +9,10 @@
 # with `published` for ordinary releases rather than being promotion-only,
 # which would have opened two competing changelog PRs per normal release.
 # A prerelease promoted to a full release later is a known, accepted gap --
-# re-publish or manually re-run this workflow to cover it. No checkout step:
+# this workflow never fires for it (there's no workflow_dispatch trigger to
+# invoke it on demand, and GitHub's "Re-run jobs" only replays a run that
+# already happened). To cover it, re-publish the release (unpublish, then
+# publish again) so `published` fires for real. No checkout step:
 # the generator does everything -- reading commits/tags and reading/writing
 # CHANGELOG.md -- via the GitHub API (repo.get_contents/update_file/
 # create_file), never touching a local workspace.
