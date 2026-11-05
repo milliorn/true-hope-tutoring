@@ -1,47 +1,30 @@
 # Source repository: https://github.com/BobAnkh/auto-generate-changelog
 # Public documentation: https://github.com/marketplace/actions/auto-generate-changelog
 #
-# Fires on `published` and regenerates CHANGELOG.md from Conventional Commit
-# history (feat/fix/etc.) since the last release covered in the file.
-# `released` was tried too (meant to catch a prerelease later promoted to a
-# full release) and reverted: GitHub's own docs describe it as firing for a
-# release being published OR a prerelease being converted, i.e. it overlaps
-# with `published` for ordinary releases rather than being promotion-only,
-# which would have opened two competing changelog PRs per normal release.
-# A prerelease promoted to a full release later is a known, accepted gap --
-# this workflow never fires for it (there's no workflow_dispatch trigger to
-# invoke it on demand, and GitHub's "Re-run jobs" only replays a run that
-# already happened). To cover it, re-publish the release (unpublish, then
-# publish again) so `published` fires for real. No checkout step:
-# the generator does everything -- reading commits/tags and reading/writing
-# CHANGELOG.md -- via the GitHub API (repo.get_contents/update_file/
-# create_file), never touching a local workspace.
+# Regenerates CHANGELOG.md from Conventional Commit history on every real
+# release. Only listens for `published`, not `released`: GitHub's own docs
+# describe `released` as firing for a release being published OR a
+# prerelease being converted, i.e. it overlaps with `published` rather than
+# being promotion-only, so listening for both would open two competing
+# changelog PRs per normal release. That leaves prerelease-promoted-to-full
+# as a known, accepted gap -- there's no workflow_dispatch trigger to invoke
+# this on demand, and GitHub's "Re-run jobs" only replays a run that already
+# happened, so the only recovery is to unpublish and republish the release
+# so `published` fires for real. Pre-releases themselves are filtered by the
+# job's `if:` guard below, since they aren't final enough for CHANGELOG.md.
 #
-# main is protected by a ruleset requiring PRs, and GITHUB_TOKEN has no
-# bypass entry on it, so a direct push would be rejected. The generator
-# instead opens a PR (BRANCH -> PULL_REQUEST inputs below) for a human to
-# review and merge, the same way every other change lands on main. This
-# differs from the action's own reference usage (its own repo's workflows
-# push straight to a long-lived branch, no PR) only because of main's
-# ruleset; the fixed branch name below otherwise matches that reference
-# pattern -- every run reuses the same branch, updating any already-open
-# changelog PR in place rather than spawning a new one, so there's no
-# multi-branch/multi-PR class of problem to guard against.
-#
-# ACCESS_TOKEN must be a PAT (CHANGELOG_PAT), not GITHUB_TOKEN: GitHub Actions
-# does not fire pull_request-triggered workflows (ci.yml, merge-gatekeeper.yml)
-# for PRs authored by GITHUB_TOKEN, so the PR would never satisfy the
-# required merge-gatekeeper status check and would be stuck unmergeable. A
-# PAT-authored PR triggers those workflows normally.
-#
-# The branch is prefixed docs/ (the Conventional Commits type of the commit
-# this PR makes, docs(changelog): ...) per this repo's branch naming
-# convention.
-#
-# Concurrency still serializes runs (not to avoid competing branches/PRs --
-# the fixed branch already rules that out -- but because the action reads
-# CHANGELOG.md then writes it back, and two runs racing on that read/write
-# against the same branch could clobber each other's changes).
+# main's branch ruleset requires PRs with no bypass for GITHUB_TOKEN, so the
+# generator opens a PR (BRANCH -> PULL_REQUEST) instead of pushing directly.
+# ACCESS_TOKEN is a PAT (CHANGELOG_PAT), not GITHUB_TOKEN, because GitHub
+# Actions doesn't fire pull_request-triggered workflows (ci.yml,
+# merge-gatekeeper.yml) for PRs authored by GITHUB_TOKEN -- that PR would
+# never satisfy the required merge-gatekeeper check and would be stuck
+# unmergeable. BRANCH is fixed (not per-release) so every run updates the
+# same branch/PR in place instead of spawning a new one each release,
+# matching the action's own non-PR reference usage of a long-lived branch.
+# Concurrency still serializes runs for a different reason: the action reads
+# CHANGELOG.md then writes it back, and two runs racing that read/write on
+# the same branch could clobber each other's changes.
 name: Changelog
 
 on:
@@ -56,8 +39,6 @@ permissions: {}
 
 jobs:
   update-changelog:
-    # Pre-releases (RCs, betas) aren't final -- don't document them in
-    # CHANGELOG.md, which is scoped to real releases.
     if: ${{ !github.event.release.prerelease }}
     runs-on: ubuntu-latest
     # 5 min, not 3: the action is a Docker action built from its own
