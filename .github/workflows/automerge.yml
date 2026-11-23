@@ -2,9 +2,7 @@ name: Dependabot reviewer
 
 # Fires whenever Dependabot opens, updates, or reopens a PR targeting main.
 # pull_request_target runs in the context of the base branch, which gives
-# enough permission to approve and merge. The merge itself is authenticated
-# with DEPENDABOT_REBASE_PAT, not GITHUB_TOKEN (see the env block below for
-# why), so do not remove that secret.
+# enough permission to approve and merge with the workflow's GITHUB_TOKEN.
 on:
   pull_request_target:
     types: [opened, synchronize, reopened]
@@ -31,15 +29,10 @@ jobs:
     if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     env:
       PR_URL: ${{ github.event.pull_request.html_url }}
-      # PAT, not GITHUB_TOKEN: a GITHUB_TOKEN-authored merge can't trigger
-      # other workflow runs (GitHub's anti-recursion protection), so it would
-      # silently never fire dependabot-rebase-cascade.yml's workflow_run
-      # trigger, and stale sibling PRs would never get rebased. A
-      # PAT-authenticated merge is a normal event and triggers it correctly.
-      # Needs Contents: read/write in addition to Pull requests: read/write,
-      # or --auto fails with "Resource not accessible by personal access
-      # token (enablePullRequestAutoMerge)".
-      GH_TOKEN: ${{ secrets.DEPENDABOT_REBASE_PAT }}
+      # A GITHUB_TOKEN-authored merge doesn't trigger other workflow runs.
+      # Nothing currently runs on merge; if a workflow ever needs to, this
+      # will need a PAT instead.
+      GH_TOKEN: ${{ github.token }}
 
     steps:
       - name: Dependabot metadata
@@ -64,6 +57,9 @@ jobs:
 
       # --auto queues the merge so all required branch protection checks must
       # pass first (e.g. dependency-review) before the merge goes through.
+      # Nothing rebases out-of-date Dependabot PRs: this relies on the main
+      # ruleset NOT requiring branches to be up to date. If that rule is ever
+      # enabled, queued PRs will sit BEHIND forever until rebased.
       - name: Allow — approve and merge
         if: steps.decision.outputs.action == 'allow'
         run: |
