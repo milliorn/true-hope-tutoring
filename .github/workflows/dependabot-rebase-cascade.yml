@@ -1,13 +1,16 @@
 name: Dependabot stale rebase
 
+# Fires when a Dependabot PR is actually merged into main. This used to
+# trigger on workflow_run of "Dependabot reviewer", but that workflow only
+# *queues* auto-merge (gh pr merge --auto) and finishes before the merge
+# lands, so this job ran while siblings were still up to date and every
+# "@dependabot rebase" was a no-op. pull_request_target is used (not
+# pull_request) so secrets are available; no PR code is checked out.
+# The merge is PAT-authenticated (see automerge.yml), so this event fires.
 on:
-  workflow_run:
-    workflows: ["Dependabot reviewer"]
-    types: [completed]
-    # No branches filter: "Dependabot reviewer" runs on pull_request_target,
-    # so its head_branch is the dependabot/* branch, never main — a
-    # branches:[main] filter here would never match and this job would
-    # never fire.
+  pull_request_target:
+    types: [closed]
+    branches: ["main"]
 
 permissions:
   pull-requests: write
@@ -16,8 +19,9 @@ jobs:
   rebase-stale-dependabot-prs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
-    # Only fire when the reviewer workflow approved and merged (conclusion = success)
-    if: github.event.workflow_run.conclusion == 'success'
+    if: >-
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.user.login == 'dependabot[bot]'
     env:
       # Dependabot only honors @dependabot commands from a commenter with
       # push access. A GITHUB_TOKEN-authored comment (github-actions[bot])
@@ -27,16 +31,25 @@ jobs:
       # (classic or fine-grained with pull-requests:write) or GitHub App
       # installation token belonging to an account with push access.
       GH_TOKEN: ${{ secrets.DEPENDABOT_REBASE_PAT }}
+      REPO: ${{ github.repository }}
 
     steps:
       - name: Rebase stale/diverged open Dependabot PRs
         run: |
-          gh pr list \
-            --repo "${{ github.repository }}" \
-            --author "app/dependabot" \
-            --state open \
-            --json number,mergeStateStatus \
-            --jq '.[] | select(.mergeStateStatus == "BEHIND" or .mergeStateStatus == "BLOCKED" or .mergeStateStatus == "DIRTY") | .number' | \
-          xargs -P 8 -I{} gh pr comment {} \
-            --repo "${{ github.repository }}" \
-            --body "@dependabot rebase"
+          # Only BEHIND (out of date with main) and DIRTY (conflicts) are
+          # fixed by a rebase. BLOCKED usually just means checks are still
+          # running, so rebasing it only restarts them.
+          # Right after a merge GitHub recomputes sibling merge states
+          # lazily and reports UNKNOWN, so retry until they settle.
+          for attempt in 1 2 3 4 5 6; do
+            states=$(gh pr list --repo "$REPO" --author "app/dependabot" \
+              --state open --json number,mergeStateStatus)
+            if ! jq -e 'any(.[]; .mergeStateStatus == "UNKNOWN")' <<<"$states" >/dev/null; then
+              break
+            fi
+            echo "Merge states still UNKNOWN (attempt $attempt), waiting..."
+            sleep 10
+          done
+
+          jq -r '.[] | select(.mergeStateStatus == "BEHIND" or .mergeStateStatus == "DIRTY") | .number' <<<"$states" |
+            xargs -r -P 8 -I{} gh pr comment {} --repo "$REPO" --body "@dependabot rebase"
