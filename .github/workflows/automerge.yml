@@ -32,11 +32,8 @@ jobs:
     env:
       PR_URL: ${{ github.event.pull_request.html_url }}
       # PAT, not GITHUB_TOKEN: a GITHUB_TOKEN-authored merge can't trigger
-      # other workflow runs (GitHub's anti-recursion protection), so it would
-      # silently never fire dependabot-rebase-cascade.yml's
-      # pull_request_target closed trigger, and stale sibling PRs would
-      # never get rebased. A
-      # PAT-authenticated merge is a normal event and triggers it correctly.
+      # other workflow runs (GitHub's anti-recursion protection), while a
+      # PAT-authenticated merge is a normal event that other workflows see.
       # Needs Contents: read/write in addition to Pull requests: read/write,
       # or --auto fails with "Resource not accessible by personal access
       # token (enablePullRequestAutoMerge)".
