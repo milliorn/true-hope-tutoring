@@ -62,6 +62,9 @@ jobs:
 
       # --auto queues the merge so all required branch protection checks must
       # pass first (e.g. dependency-review) before the merge goes through.
+      # Nothing rebases out-of-date Dependabot PRs: this relies on the main
+      # ruleset NOT requiring branches to be up to date. If that rule is ever
+      # enabled, queued PRs will sit BEHIND forever until rebased.
       - name: Allow — approve and merge
         if: steps.decision.outputs.action == 'allow'
         run: |
