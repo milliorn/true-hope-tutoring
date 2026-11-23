@@ -2,9 +2,7 @@ name: Dependabot reviewer
 
 # Fires whenever Dependabot opens, updates, or reopens a PR targeting main.
 # pull_request_target runs in the context of the base branch, which gives
-# enough permission to approve and merge. The merge itself is authenticated
-# with DEPENDABOT_REBASE_PAT, not GITHUB_TOKEN (see the env block below for
-# why), so do not remove that secret.
+# enough permission to approve and merge with the workflow's GITHUB_TOKEN.
 on:
   pull_request_target:
     types: [opened, synchronize, reopened]
@@ -31,13 +29,10 @@ jobs:
     if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     env:
       PR_URL: ${{ github.event.pull_request.html_url }}
-      # PAT, not GITHUB_TOKEN: a GITHUB_TOKEN-authored merge can't trigger
-      # other workflow runs (GitHub's anti-recursion protection), while a
-      # PAT-authenticated merge is a normal event that other workflows see.
-      # Needs Contents: read/write in addition to Pull requests: read/write,
-      # or --auto fails with "Resource not accessible by personal access
-      # token (enablePullRequestAutoMerge)".
-      GH_TOKEN: ${{ secrets.DEPENDABOT_REBASE_PAT }}
+      # A GITHUB_TOKEN-authored merge doesn't trigger other workflow runs.
+      # Nothing currently runs on merge; if a workflow ever needs to, this
+      # will need a PAT instead.
+      GH_TOKEN: ${{ github.token }}
 
     steps:
       - name: Dependabot metadata
